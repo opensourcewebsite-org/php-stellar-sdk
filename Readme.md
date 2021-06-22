@@ -1,21 +1,49 @@
-## Description
+<div align="center">
+<img alt="Stellar" src="https://github.com/stellar/.github/raw/master/stellar-logo.png" width="558" />
+<br/>
+<strong>Creating equitable access to the global financial system</strong>
+<h1>php-stellar-sdk</h1>
+</div>
 
-PHP Library for interacting with the Stellar network.
+PHP Stellar SDK provides APIs to build and sign transactions, connect and query [Stellar Horizon server](https://github.com/stellar/go/tree/master/services/horizon).
 
-* Communicate with Horizon server
-* Build and sign transactions
+This library is under active development and should be considered beta quality. Please ensure that you've tested extensively on a test network and have added sanity checks in other places in your code.
 
-## :warning: Danger Zone :warning:
+The repository is a part of the [OpenSourceWebsite Organization](https://github.com/opensourcewebsite-org). This project and everyone participating in it is governed by the [Code of Conduct](CODE_OF_CONDUCT.md).
 
-**Development Status**
+## Getting Started
 
-This library is under active development and should be considered beta quality.
-Please ensure that you've tested extensively on a test network and have added
-sanity checks in other places in your code.
+[See the release notes for breaking changes](CHANGELOG.md).
 
-:warning: [See the release notes for breaking changes](CHANGELOG.md) 
+See the [getting-started](getting-started/) directory for examples of how to use this library. Additional examples are available in the [examples](examples/) directory.
 
-**Large Integer Support**
+Please read through [Stellar API Documentation](https://developers.stellar.org/api).
+
+## Contributing
+
+Please read through our [Contribution Guidelines](CONTRIBUTING.md).
+
+## Installation
+
+The preferred way to install this extension is through [composer](http://getcomposer.org/download/).
+
+Either run
+
+```
+composer require opensourcewebsite-org/php-stellar-sdk
+```
+
+or add
+
+```
+"opensourcewebsite-org/php-stellar-sdk": "*"
+```
+
+to the require section of your `composer.json` file.
+
+## Usage
+
+### Large Integer Support
 
 The largest PHP integer is 64-bits when on a 64-bit platform. This is especially
 important to pay attention to when working with large balance transfers. The native
@@ -29,10 +57,10 @@ This library attempts to add checks for this scenario and also uses a `BigIntege
 class to work around this problem.
 
 If your application uses large amounts of XLM or a custom asset please do extensive
-testing with large values and use the `StellarAmount` helper class or the `BigInteger` 
+testing with large values and use the `StellarAmount` helper class or the `BigInteger`
 class if possible.
 
-**Floating point issues**
+### Floating point issues
 
 Although not specific to Stellar or PHP, it's important to be aware of problems
 when doing comparisons between floating point numbers.
@@ -68,29 +96,6 @@ back to a decimal number when you need to display a balance to the user.
 
 The static `StellarAmount::STROOP_SCALE` property can be used to help with this conversion.
 
-## Installation
+## License
 
-To install the latest release for usage in your project:
-
-	cd your_project/
-	composer require zulucrypto/stellar-api
-
-If you want to work with the most recent development version you can use this repository:
-
-	git clone https://github.com/zulucrypto/stellar-api.git
-	cd stellar-api/
-	composer install
-
-## Getting Started
-
-See the [getting-started](getting-started/) directory for examples of how to use this library.
-
-These examples are modeled after the ones in Stellar's getting started guide:
-
-https://www.stellar.org/developers/guides/get-started/create-account.html
-
-Additional examples are available in the [examples](examples/) directory 
-
-## Donations
-
-Stellar: GCUVDZRQ6CX347AMUUWZDYSNDFAWDN6FUYM5DVYYVO574NHTAUCQAK53
+This project is open source and available freely under the [MIT license](LICENSE.md).

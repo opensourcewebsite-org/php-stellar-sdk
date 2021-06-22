@@ -1,6 +1,29 @@
 {
-    "name": "zulucrypto/stellar-api",
-    "description": "API client for the Stellar network",
+    "name": "opensourcewebsite-org/php-stellar-sdk",
+    "description": "Stellar Horizon client library for the PHP language",
+    "keywords": [
+        "stellar",
+        "stellar-network",
+        "horizon",
+        "php",
+        "sdk",
+        "api",
+        "blockchain",
+        "cryptocurrency"
+    ],
+    "homepage": "https://github.com/opensourcewebsite-org/php-stellar-sdk",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Zulu Crypto",
+            "email": "zulucrypto@protonmail.com"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/opensourcewebsite-org/php-stellar-sdk/issues",
+        "source": "https://github.com/opensourcewebsite-org/php-stellar-sdk"
+    },
     "autoload": {
         "psr-4": {
             "ZuluCrypto\\StellarSdk\\": "src/",
@@ -14,13 +37,6 @@
         "phpseclib/phpseclib": "^2.0.6",
         "symfony/filesystem": "^4.1"
     },
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Zulu Crypto",
-            "email": "zulucrypto@protonmail.com"
-        }
-    ],
     "require-dev": {
         "phpunit/phpunit": "^6.4"
     }
