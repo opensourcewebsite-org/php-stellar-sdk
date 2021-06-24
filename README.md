@@ -17,7 +17,7 @@ The repository is a part of the [OpenSourceWebsite Organization](https://github.
 
 See the [getting-started](getting-started/) directory for examples of how to use this library. Additional examples are available in the [examples](examples/) directory.
 
-Please read through [Stellar API Documentation](https://developers.stellar.org/api).
+Please read through [Stellar API Documentation](https://developers.stellar.org/api) and [Stellar Testnet Documentation](https://developers.stellar.org/docs/glossary/testnet/).
 
 ## Contributing
 

@@ -36,3 +36,11 @@ When contributing to this repository, please first discuss the change you wish t
 ### Key branches
 
 - `master` is the latest, deployed version
+
+### Composer
+
+https://getcomposer.org/doc/04-schema.md
+
+In all cases when `composer.json` file is updated, add ` composer.json` and `composer.lock` files to the same commit.
+
+Each package must contain specific version. Don't use `*` and `@dev` versions.
