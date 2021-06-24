@@ -1,6 +1,5 @@
 <?php
 
-
 namespace ZuluCrypto\StellarSdk\Model;
 
 /**
@@ -133,20 +132,48 @@ class Transaction extends RestApiModel
         parent::loadFromRawResponseData($rawData);
 
         // todo: should be a Memo object?
-        if (isset($rawData['ledger'])) $this->ledger = $rawData['ledger'];
-        if (isset($rawData['created_at'])) $this->createdAt = \DateTime::createFromFormat(DATE_ISO8601, $rawData['created_at']);
-        if (isset($rawData['source_account'])) $this->sourceAccountId = $rawData['source_account'];
-        if (isset($rawData['source_account_sequence'])) $this->sourceAccountSequence = $rawData['source_account_sequence'];
-        if (isset($rawData['fee_paid'])) $this->feePaid = $rawData['fee_paid'];
-        if (isset($rawData['operation_count'])) $this->operationCount = $rawData['operation_count'];
-        if (isset($rawData['envelope_xdr'])) $this->envelopeXdr = $rawData['envelope_xdr'];
-        if (isset($rawData['result_xdr'])) $this->resultXdr = $rawData['result_xdr'];
-        if (isset($rawData['result_meta_xdr'])) $this->resultMetaXdr = $rawData['result_meta_xdr'];
-        if (isset($rawData['fee_meta_xdr'])) $this->feeMetaXdr = $rawData['fee_meta_xdr'];
-        if (isset($rawData['result_code'])) $this->resultCodeI = $rawData['result_code'];
-        if (isset($rawData['result_code_s'])) $this->resultCodeS = $rawData['result_code_s'];
-        if (isset($rawData['memo_type'])) $this->memoType = $rawData['memo_type'];
-        if (isset($rawData['memo'])) $this->memo = $rawData['memo'];
+        if (isset($rawData['ledger'])) {
+            $this->ledger = $rawData['ledger'];
+        }
+        if (isset($rawData['created_at'])) {
+            $this->createdAt = \DateTime::createFromFormat(DATE_ISO8601, $rawData['created_at']);
+        }
+        if (isset($rawData['source_account'])) {
+            $this->sourceAccountId = $rawData['source_account'];
+        }
+        if (isset($rawData['source_account_sequence'])) {
+            $this->sourceAccountSequence = $rawData['source_account_sequence'];
+        }
+        if (isset($rawData['fee_paid'])) {
+            $this->feePaid = $rawData['fee_paid'];
+        }
+        if (isset($rawData['operation_count'])) {
+            $this->operationCount = $rawData['operation_count'];
+        }
+        if (isset($rawData['envelope_xdr'])) {
+            $this->envelopeXdr = $rawData['envelope_xdr'];
+        }
+        if (isset($rawData['result_xdr'])) {
+            $this->resultXdr = $rawData['result_xdr'];
+        }
+        if (isset($rawData['result_meta_xdr'])) {
+            $this->resultMetaXdr = $rawData['result_meta_xdr'];
+        }
+        if (isset($rawData['fee_meta_xdr'])) {
+            $this->feeMetaXdr = $rawData['fee_meta_xdr'];
+        }
+        if (isset($rawData['result_code'])) {
+            $this->resultCodeI = $rawData['result_code'];
+        }
+        if (isset($rawData['result_code_s'])) {
+            $this->resultCodeS = $rawData['result_code_s'];
+        }
+        if (isset($rawData['memo_type'])) {
+            $this->memoType = $rawData['memo_type'];
+        }
+        if (isset($rawData['memo'])) {
+            $this->memo = $rawData['memo'];
+        }
     }
 
     /**
@@ -154,15 +181,22 @@ class Transaction extends RestApiModel
      * @param int  $limit
      * @return array|AssetTransferInterface[]|RestApiModel[]
      */
-    public function getPayments($sinceCursor = null, $limit = 50)
+    public function getPayments($sinceCursor = null, $limit = 50, $order = 'asc')
     {
         $payments = [];
 
         $url = sprintf('/transactions/%s/payments', $this->hash);
         $params = [];
 
-        if ($sinceCursor) $params['cursor'] = $sinceCursor;
-        if ($limit) $params['limit'] = $limit;
+        if ($sinceCursor) {
+            $params['cursor'] = $sinceCursor;
+        }
+        if ($limit) {
+            $params['limit'] = $limit;
+        }
+        if ($order) {
+            $params['order'] = $order;
+        }
 
         if ($params) {
             $url .= '?' . http_build_query($params);

@@ -1,8 +1,6 @@
 <?php
 
-
 namespace ZuluCrypto\StellarSdk\Model;
-
 
 use phpseclib\Math\BigInteger;
 use ZuluCrypto\StellarSdk\Horizon\Api\HorizonResponse;
@@ -143,8 +141,7 @@ class Account extends RestApiModel
     {
         if ($payment->isNativeAsset()) {
             $paymentOp = PaymentOp::newNativePayment($payment->getDestinationAccountId(), $payment->getAmount()->getBalanceAsStroops());
-        }
-        else {
+        } else {
             throw new \ErrorException('Not implemented');
         }
 
@@ -163,15 +160,22 @@ class Account extends RestApiModel
      * @param int  $limit
      * @return Transaction[]
      */
-    public function getTransactions($sinceCursor = null, $limit = 50)
+    public function getTransactions($sinceCursor = null, $limit = 50, $order = 'asc')
     {
         $transactions = [];
 
         $url = sprintf('/accounts/%s/transactions', $this->accountId);
         $params = [];
 
-        if ($sinceCursor) $params['cursor'] = $sinceCursor;
-        if ($limit) $params['limit'] = $limit;
+        if ($sinceCursor) {
+            $params['cursor'] = $sinceCursor;
+        }
+        if ($limit) {
+            $params['limit'] = $limit;
+        }
+        if ($order) {
+            $params['order'] = $order;
+        }
 
         if ($params) {
             $url .= '?' . http_build_query($params);
@@ -202,8 +206,12 @@ class Account extends RestApiModel
         $url = sprintf('/accounts/%s/effects', $this->accountId);
         $params = [];
 
-        if ($sinceCursor) $params['cursor'] = $sinceCursor;
-        if ($limit) $params['limit'] = $limit;
+        if ($sinceCursor) {
+            $params['cursor'] = $sinceCursor;
+        }
+        if ($limit) {
+            $params['limit'] = $limit;
+        }
 
         if ($params) {
             $url .= '?' . http_build_query($params);
@@ -227,15 +235,22 @@ class Account extends RestApiModel
      * @param int  $limit
      * @return array|AssetTransferInterface[]|RestApiModel[]
      */
-    public function getPayments($sinceCursor = null, $limit = 50)
+    public function getPayments($sinceCursor = null, $limit = 50, $order = 'asc')
     {
         $results = [];
 
         $url = sprintf('/accounts/%s/payments', $this->accountId);
         $params = [];
 
-        if ($sinceCursor) $params['cursor'] = $sinceCursor;
-        if ($limit) $params['limit'] = $limit;
+        if ($sinceCursor) {
+            $params['cursor'] = $sinceCursor;
+        }
+        if ($limit) {
+            $params['limit'] = $limit;
+        }
+        if ($order) {
+            $params['order'] = $order;
+        }
 
         if ($params) {
             $url .= '?' . http_build_query($params);
@@ -290,7 +305,9 @@ class Account extends RestApiModel
         MathSafety::require64Bit();
 
         foreach ($this->getBalances() as $balance) {
-            if ($balance->isNativeAsset()) return $balance->getBalance();
+            if ($balance->isNativeAsset()) {
+                return $balance->getBalance();
+            }
         }
 
         return 0;
@@ -307,7 +324,9 @@ class Account extends RestApiModel
         MathSafety::require64Bit();
 
         foreach ($this->getBalances() as $balance) {
-            if ($balance->isNativeAsset()) return $balance->getUnscaledBalance();
+            if ($balance->isNativeAsset()) {
+                return $balance->getUnscaledBalance();
+            }
         }
 
         return "0";
@@ -322,8 +341,12 @@ class Account extends RestApiModel
     public function getCustomAssetBalanceValue(Asset $asset)
     {
         foreach ($this->getBalances() as $balance) {
-            if ($balance->getAssetCode() !== $asset->getAssetCode()) continue;
-            if ($balance->getAssetIssuerAccountId() != $asset->getIssuer()->getAccountIdString()) continue;
+            if ($balance->getAssetCode() !== $asset->getAssetCode()) {
+                continue;
+            }
+            if ($balance->getAssetIssuerAccountId() != $asset->getIssuer()->getAccountIdString()) {
+                continue;
+            }
 
             return $balance->getBalance();
         }
@@ -340,8 +363,12 @@ class Account extends RestApiModel
     public function getCustomAssetBalance(Asset $asset)
     {
         foreach ($this->getBalances() as $balance) {
-            if ($balance->getAssetCode() !== $asset->getAssetCode()) continue;
-            if ($balance->getAssetIssuerAccountId() != $asset->getIssuer()->getAccountIdString()) continue;
+            if ($balance->getAssetCode() !== $asset->getAssetCode()) {
+                continue;
+            }
+            if ($balance->getAssetIssuerAccountId() != $asset->getIssuer()->getAccountIdString()) {
+                continue;
+            }
 
             return $balance;
         }
@@ -361,18 +388,22 @@ class Account extends RestApiModel
         MathSafety::require64Bit();
 
         foreach ($this->getBalances() as $balance) {
-            if ($balance->getAssetCode() !== $asset->getAssetCode()) continue;
-            if ($balance->getAssetIssuerAccountId() != $asset->getIssuer()->getAccountIdString()) continue;
+            if ($balance->getAssetCode() !== $asset->getAssetCode()) {
+                continue;
+            }
+            if ($balance->getAssetIssuerAccountId() != $asset->getIssuer()->getAccountIdString()) {
+                continue;
+            }
 
             return $balance->getUnscaledBalance();
         }
 
         return null;
     }
-    
+
     /**
      * Returns an array holding account thresholds.
-     * 
+     *
      * @return array
      */
     public function getThresholds()
