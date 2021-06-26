@@ -4,7 +4,7 @@
 namespace ZuluCrypto\StellarSdk\Test\Unit\XdrModel\Operation;
 
 
-use phpseclib\Math\BigInteger;
+use phpseclib3\Math\BigInteger;
 use PHPUnit\Framework\TestCase;
 use ZuluCrypto\StellarSdk\Xdr\XdrBuffer;
 use ZuluCrypto\StellarSdk\XdrModel\Operation\BumpSequenceOp;

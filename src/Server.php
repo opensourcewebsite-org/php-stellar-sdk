@@ -3,7 +3,7 @@
 namespace ZuluCrypto\StellarSdk;
 
 
-use phpseclib\Math\BigInteger;
+use phpseclib3\Math\BigInteger;
 use Prophecy\Exception\InvalidArgumentException;
 use ZuluCrypto\StellarSdk\Horizon\ApiClient;
 use ZuluCrypto\StellarSdk\Horizon\Exception\HorizonException;

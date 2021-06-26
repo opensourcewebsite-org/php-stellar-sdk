@@ -2,7 +2,7 @@
 
 namespace ZuluCrypto\StellarSdk\Model;
 
-use phpseclib\Math\BigInteger;
+use phpseclib3\Math\BigInteger;
 use ZuluCrypto\StellarSdk\Horizon\Api\HorizonResponse;
 use ZuluCrypto\StellarSdk\Keypair;
 use ZuluCrypto\StellarSdk\Transaction\TransactionBuilder;
@@ -98,7 +98,7 @@ class Account extends RestApiModel
      * @param $accountId
      * @return bool
      */
-    public static function isValidAccount($accountId)
+    public static function isValidAccount(string $accountId): bool
     {
         // Validate that keypair passes checksum
         try {

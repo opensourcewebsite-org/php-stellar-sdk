@@ -5,7 +5,7 @@ namespace ZuluCrypto\StellarSdk\Test\HardwareWallet;
 
 
 use ZuluCrypto\StellarSdk\Test\Util\HardwareWalletIntegrationTest;
-use phpseclib\Math\BigInteger;
+use phpseclib3\Math\BigInteger;
 use ZuluCrypto\StellarSdk\Keypair;
 use ZuluCrypto\StellarSdk\XdrModel\Asset;
 use ZuluCrypto\StellarSdk\Model\StellarAmount;

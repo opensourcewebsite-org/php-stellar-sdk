@@ -3,7 +3,7 @@
 
 namespace ZuluCrypto\StellarSdk\Xdr;
 
-use phpseclib\Math\BigInteger;
+use phpseclib3\Math\BigInteger;
 use ZuluCrypto\StellarSdk\Xdr\Iface\XdrEncodableInterface;
 
 
@@ -58,7 +58,7 @@ class XdrEncoder
         if (strlen($value) > $maxLength) throw new \InvalidArgumentException(sprintf('Value of length %s is greater than the maximum allowed length of %s', strlen($value), $maxLength));
 
         $bytes = '';
-        
+
         $bytes .= self::unsignedInteger(strlen($value));
         $bytes .= self::applyPadding($value);
 

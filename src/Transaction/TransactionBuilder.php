@@ -3,7 +3,7 @@
 
 namespace ZuluCrypto\StellarSdk\Transaction;
 
-use phpseclib\Math\BigInteger;
+use phpseclib3\Math\BigInteger;
 use ZuluCrypto\StellarSdk\Horizon\Api\PostTransactionResponse;
 use ZuluCrypto\StellarSdk\Horizon\ApiClient;
 use ZuluCrypto\StellarSdk\Horizon\Exception\HorizonException;

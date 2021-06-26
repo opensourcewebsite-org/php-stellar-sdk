@@ -47,7 +47,7 @@ abstract class IntegrationTest extends TestCase
      */
     protected $horizonServer;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->horizonBaseUrl = getenv('STELLAR_HORIZON_BASE_URL');
         if (!$this->horizonBaseUrl) {

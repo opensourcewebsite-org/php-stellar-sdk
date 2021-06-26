@@ -4,7 +4,7 @@
 namespace ZuluCrypto\StellarSdk\Model;
 
 
-use phpseclib\Math\BigInteger;
+use phpseclib3\Math\BigInteger;
 
 class AssetAmount
 {

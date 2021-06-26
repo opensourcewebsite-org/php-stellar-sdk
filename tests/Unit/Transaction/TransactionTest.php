@@ -3,7 +3,7 @@
 namespace ZuluCrypto\StellarSdk\Test\Unit\Transaction;
 
 
-use phpseclib\Math\BigInteger;
+use phpseclib3\Math\BigInteger;
 use PHPUnit\Framework\TestCase;
 use ZuluCrypto\StellarSdk\Keypair;
 use ZuluCrypto\StellarSdk\Transaction\Transaction;

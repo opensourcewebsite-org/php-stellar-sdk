@@ -4,10 +4,11 @@
 namespace ZuluCrypto\StellarSdk\Xdr\Type;
 
 
+use Countable;
 use ZuluCrypto\StellarSdk\Xdr\Iface\XdrEncodableInterface;
 use ZuluCrypto\StellarSdk\Xdr\XdrEncoder;
 
-class VariableArray implements XdrEncodableInterface
+class VariableArray implements XdrEncodableInterface, Countable
 {
     /**
      * @var XdrEncodableInterface[]
