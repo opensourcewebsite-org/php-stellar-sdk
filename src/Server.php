@@ -149,7 +149,7 @@ class Server
         ];
         $url = '/accounts' . '?' . http_build_query($params);
         $records = $this->apiClient->get($url)->getRecords();
-        return array_map(fn ($r) => Account::fromHorizonResponse($r), $records);
+        return array_map(fn ($r) => Account::fromRawResponseData($r), $records);
     }
 
     /**
@@ -178,7 +178,7 @@ class Server
         ];
         $url = '/accounts' . '?' . http_build_query($params);
         $records = $this->apiClient->get($url)->getRecords();
-        return array_map(fn ($r) => Account::fromHorizonResponse($r), $records);
+        return array_map(fn ($r) => Account::fromRawResponseData($r), $records);
     }
 
     /**

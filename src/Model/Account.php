@@ -45,10 +45,19 @@ class Account extends RestApiModel
      * @param HorizonResponse $response
      * @return Account
      */
-    public static function fromHorizonResponse(HorizonResponse $response)
+    public static function fromHorizonResponse(HorizonResponse $response): Account
     {
         $rawData = $response->getRawData();
 
+        return self::fromRawResponseData($rawData);
+    }
+
+    /**
+     * @param array $rawData
+     * @return \ZuluCrypto\StellarSdk\Model\Account
+     */
+    public static function fromRawResponseData(array $rawData): Account
+    {
         // 404 means the account does not currently exist (it may have been merged)
         if (isset($rawData['status']) && $rawData['status'] == 404) {
             throw new \InvalidArgumentException('Account does not exist');
