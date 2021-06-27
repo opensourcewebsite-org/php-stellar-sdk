@@ -155,14 +155,14 @@ class Server
     }
 
     /**
-     * @param \ZuluCrypto\StellarSdk\XdrModel\AccountId $signerId Account ID of the signer. Every account in the result
+     * @param string $signerId Account ID of the signer. Every account in the result
      * will have the given account ID as a signer.
      * @param string $order
      * @param int $limit
      * @return Account[]
      * @throws \ZuluCrypto\StellarSdk\Horizon\Exception\HorizonException
      */
-    public function getAccountsForSigner(AccountId $signerId, string $order = 'asc', int $limit = 10): array
+    public function getAccountsForSigner(string $signerId, string $order = 'asc', int $limit = 10): array
     {
         if (!in_array($order, ['asc', 'desc'])) {
             throw new \InvalidArgumentException('Order must be either asc or desc');
@@ -174,7 +174,7 @@ class Server
         }
 
         $params = [
-            'signer' => $signerId->getAccountIdString(),
+            'signer' => $signerId,
             'order' => $order,
             'limit' => $limit,
         ];
