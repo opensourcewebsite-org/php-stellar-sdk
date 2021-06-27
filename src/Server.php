@@ -109,14 +109,14 @@ class Server
     /**
      * Returns all accounts who are trustees to a specific asset.
      *
-     * @param \ZuluCrypto\StellarSdk\XdrModel\Asset $asset Every account in the result will have a trustline
-     * for the given asset. must be either alphanum4, or alphanum12
+     * @param string $assetCode
+     * @param string $assetIssuerId Every account in the result will have a trustline for the given asset.
      * @param string $order
      * @param int $limit
      * @return Account[]
      * @throws \ZuluCrypto\StellarSdk\Horizon\Exception\HorizonException
      */
-    public function getAccountsForAsset(Asset $asset, string $order = 'asc', int $limit = 10): array
+    public function getAccountsForAsset(string $assetCode, string $assetIssuerId, string $order = 'asc', int $limit = 10): array
     {
         function encodeAsset(Asset $asset): string
         {
@@ -131,9 +131,7 @@ class Server
             }
         }
 
-        if ($asset->isNative()) {
-            throw new \InvalidArgumentException('Asset must be either alphanum4, or alphanum12');
-        }
+        $asset = Asset::newCustomAsset($assetCode, $assetIssuerId);
 
         if (!in_array($order, ['asc', 'desc'])) {
             throw new \InvalidArgumentException('Order must be either asc or desc');
