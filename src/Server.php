@@ -3,7 +3,6 @@
 namespace ZuluCrypto\StellarSdk;
 
 
-use phpseclib3\Math\BigInteger;
 use Prophecy\Exception\InvalidArgumentException;
 use ZuluCrypto\StellarSdk\Horizon\ApiClient;
 use ZuluCrypto\StellarSdk\Horizon\Exception\HorizonException;
@@ -11,6 +10,8 @@ use ZuluCrypto\StellarSdk\Model\Account;
 use ZuluCrypto\StellarSdk\Model\Payment;
 use ZuluCrypto\StellarSdk\Signing\SigningInterface;
 use ZuluCrypto\StellarSdk\Transaction\TransactionBuilder;
+use ZuluCrypto\StellarSdk\XdrModel\AccountId;
+use ZuluCrypto\StellarSdk\XdrModel\Asset;
 
 class Server
 {
@@ -103,6 +104,83 @@ class Server
         $account->setApiClient($this->apiClient);
 
         return $account;
+    }
+
+    /**
+     * Returns all accounts who are trustees to a specific asset.
+     *
+     * @param \ZuluCrypto\StellarSdk\XdrModel\Asset $asset Every account in the result will have a trustline
+     * for the given asset. must be either alphanum4, or alphanum12
+     * @param string $order
+     * @param int $limit
+     * @return Account[]
+     * @throws \ZuluCrypto\StellarSdk\Horizon\Exception\HorizonException
+     */
+    public function getAccountsForAsset(Asset $asset, string $order = 'asc', int $limit = 10): array
+    {
+        function encodeAsset(Asset $asset): string
+        {
+            switch ($asset->getType()) {
+                case Asset::TYPE_NATIVE:
+                    return 'native';
+                case Asset::TYPE_ALPHANUM_4:
+                case Asset::TYPE_ALPHANUM_12:
+                    return $asset->getAssetCode() . ':' . $asset->getIssuer()->getAccountIdString();
+                default:
+                    throw new \InvalidArgumentException('Invalid asset type ' . $asset->getType());
+            }
+        }
+
+        if ($asset->isNative()) {
+            throw new \InvalidArgumentException('Asset must be either alphanum4, or alphanum12');
+        }
+
+        if (!in_array($order, ['asc', 'desc'])) {
+            throw new \InvalidArgumentException('Order must be either asc or desc');
+        }
+
+        // todo remove limit max value when implement paging, maybe -1 or null for all records
+        if ($limit < 1 || $limit > 200) {
+            throw new \InvalidArgumentException('Limit must be in range 1-200');
+        }
+
+        $params = [
+            'asset' => encodeAsset($asset),
+            'order' => $order,
+            'limit' => $limit,
+        ];
+        $url = '/accounts' . '?' . http_build_query($params);
+        $records = $this->apiClient->get($url)->getRecords();
+        return array_map(fn ($r) => Account::fromHorizonResponse($r), $records);
+    }
+
+    /**
+     * @param \ZuluCrypto\StellarSdk\XdrModel\AccountId $signerId Account ID of the signer. Every account in the result
+     * will have the given account ID as a signer.
+     * @param string $order
+     * @param int $limit
+     * @return Account[]
+     * @throws \ZuluCrypto\StellarSdk\Horizon\Exception\HorizonException
+     */
+    public function getAccountsForSigner(AccountId $signerId, string $order = 'asc', int $limit = 10): array
+    {
+        if (!in_array($order, ['asc', 'desc'])) {
+            throw new \InvalidArgumentException('Order must be either asc or desc');
+        }
+
+        // todo remove limit max value when implement paging, maybe -1 or null for all records
+        if ($limit < 1 || $limit > 200) {
+            throw new \InvalidArgumentException('Limit must be in range 1-200');
+        }
+
+        $params = [
+            'signer' => $signerId->getAccountIdString(),
+            'order' => $order,
+            'limit' => $limit,
+        ];
+        $url = '/accounts' . '?' . http_build_query($params);
+        $records = $this->apiClient->get($url)->getRecords();
+        return array_map(fn ($r) => Account::fromHorizonResponse($r), $records);
     }
 
     /**
