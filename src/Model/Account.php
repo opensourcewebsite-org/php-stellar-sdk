@@ -451,4 +451,13 @@ class Account extends RestApiModel
     {
         return $this->data;
     }
+
+    /**
+     * Returns account id. This account’s public key encoded in a base32 string representation.
+     * @return string
+     */
+    public function getAccountId(): string
+    {
+        return $this->accountId;
+    }
 }
