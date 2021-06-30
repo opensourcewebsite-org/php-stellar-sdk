@@ -21,10 +21,9 @@ class Server
     private $apiClient;
 
     /**
-     * @var
+     * @var bool
      */
-    private $isTestnet;
-
+    protected $isTestnet;
 
     /**
      * @var SigningInterface
@@ -179,6 +178,23 @@ class Server
         $url = '/accounts' . '?' . http_build_query($params);
         $records = $this->apiClient->get($url)->getRecords();
         return array_map(fn ($r) => Account::fromRawResponseData($r), $records);
+    }
+
+    /**
+     * Retrieve an Account's Data
+     *
+     * {@see https://developers.stellar.org/api/resources/accounts/data/}
+     *
+     * @param string $account_id
+     * @param string $key
+     * @return string
+     * @throws \ZuluCrypto\StellarSdk\Horizon\Exception\HorizonException
+     */
+    public function getAccountDataByKey(string $account_id, string $key): string
+    {
+        $url = sprintf('/accounts/%s/data/%s', $account_id, $key);
+        $response = $this->apiClient->get($url);
+        return base64_decode($response->mustGetField('value'));
     }
 
     /**
