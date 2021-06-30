@@ -194,7 +194,7 @@ class Server
     {
         $url = sprintf('/accounts/%s/data/%s', $account_id, $key);
         $response = $this->apiClient->get($url);
-        return base64_decode($response->mustGetField('value'));
+        return base64_decode($response->getField('value'));
     }
 
     /**
