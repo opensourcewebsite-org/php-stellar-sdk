@@ -187,13 +187,25 @@ class Server
      *
      * @param string $account_id
      * @param string $key
-     * @return string
+     * @return string|null
      * @throws \ZuluCrypto\StellarSdk\Horizon\Exception\HorizonException
      */
-    public function getAccountDataByKey(string $account_id, string $key): string
+    public function getAccountDataByKey(string $account_id, string $key): ?string
     {
         $url = sprintf('/accounts/%s/data/%s', $account_id, $key);
-        $response = $this->apiClient->get($url);
+
+        try {
+            $response = $this->apiClient->get($url);
+        } catch (HorizonException $e) {
+            // key not found, return null
+            if ($e->getHttpStatusCode() === 404) {
+                return null;
+            }
+
+            // A problem we can't handle, rethrow
+            throw $e;
+        }
+
         return base64_decode($response->getField('value'));
     }
 
