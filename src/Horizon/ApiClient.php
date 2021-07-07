@@ -497,7 +497,7 @@ class ApiClient
             $decoded = null;
             if ($e->getResponse()) {
                 $decoded = Json::mustDecode($e->getResponse()->getBody());
-                throw PostTransactionException::fromRawResponse($relativeUrl, 'POST', $decoded);
+                throw PostTransactionException::fromRawResponse($relativeUrl, 'POST', $decoded, $e);
             }
             // No response, something else went wrong
             else {
