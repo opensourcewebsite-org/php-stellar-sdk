@@ -32,6 +32,8 @@ class Account extends RestApiModel
 
     private $homeDomain;
 
+    private $lastModifiedLedger;
+
     /**
      * @var array|AssetAmount[]
      */
@@ -78,6 +80,7 @@ class Account extends RestApiModel
         $object->sequence = $rawData['sequence'];
         $object->subentryCount = $rawData['subentry_count'];
         $object->homeDomain = $rawData['home_domain'] ?? null;
+        $object->lastModifiedLedger = $rawData['last_modified_ledger'];
         $object->thresholds = $rawData['thresholds'];
         $object->flags = $rawData['flags'] ?? null;
         $object->signers = $rawData['signers'] ?? null;
@@ -462,6 +465,14 @@ class Account extends RestApiModel
     public function getHomeDomain(): ?string
     {
         return $this->homeDomain;
+    }
+
+    /**
+     * @return int
+     */
+    public function getLastModifiedLedger(): int
+    {
+        return $this->lastModifiedLedger;
     }
 
     /**
