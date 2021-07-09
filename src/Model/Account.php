@@ -30,12 +30,16 @@ class Account extends RestApiModel
 
     private $subentryCount;
 
+    private $homeDomain;
+
     /**
      * @var array|AssetAmount[]
      */
     private $balances;
 
     private $thresholds;
+
+    private $flags;
 
     private $signers;
 
@@ -73,7 +77,10 @@ class Account extends RestApiModel
         $object->accountId = $rawData['account_id'];
         $object->sequence = $rawData['sequence'];
         $object->subentryCount = $rawData['subentry_count'];
+        $object->homeDomain = $rawData['home_domain'] ?? null;
         $object->thresholds = $rawData['thresholds'];
+        $object->flags = $rawData['flags'] ?? null;
+        $object->signers = $rawData['signers'] ?? null;
         $object->data = [];
         if (isset($rawData['data'])) {
             foreach ($rawData['data'] as $key => $value) {
@@ -421,6 +428,22 @@ class Account extends RestApiModel
     }
 
     /**
+     * @return array
+     */
+    public function getFlags(): array
+    {
+        return $this->flags;
+    }
+
+    /**
+     * @return array
+     */
+    public function getSigners(): array
+    {
+        return $this->signers;
+    }
+
+    /**
      * This returns the sequence exactly as it comes back from the Horizon API
      *
      * See getSequenceAsBigInteger if you need to use this value in a transaction
@@ -431,6 +454,14 @@ class Account extends RestApiModel
     public function getSequence()
     {
         return $this->sequence;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getHomeDomain(): ?string
+    {
+        return $this->homeDomain;
     }
 
     /**
