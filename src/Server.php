@@ -7,6 +7,7 @@ use Prophecy\Exception\InvalidArgumentException;
 use ZuluCrypto\StellarSdk\Horizon\ApiClient;
 use ZuluCrypto\StellarSdk\Horizon\Exception\HorizonException;
 use ZuluCrypto\StellarSdk\Model\Account;
+use ZuluCrypto\StellarSdk\Model\Ledger;
 use ZuluCrypto\StellarSdk\Model\Payment;
 use ZuluCrypto\StellarSdk\Signing\SigningInterface;
 use ZuluCrypto\StellarSdk\Transaction\TransactionBuilder;
@@ -211,6 +212,38 @@ class Server
         }
 
         return base64_decode($response->getField('value'));
+    }
+
+    /**
+     * https://developers.stellar.org/api/resources/ledgers/list/
+     * @param string|null $cursor
+     * @param string $order
+     * @param int $limit
+     * @return Ledger[]
+     * @throws \ZuluCrypto\StellarSdk\Horizon\Exception\HorizonException
+     */
+    public function getLedgers(?string $cursor = null, string $order = 'asc', int $limit = 10): array
+    {
+        if (!in_array($order, ['asc', 'desc'])) {
+            throw new \InvalidArgumentException('Order must be either asc or desc');
+        }
+
+        // todo remove limit max value when implement paging, maybe -1 or null for all records
+        if ($limit < 1 || $limit > 200) {
+            throw new \InvalidArgumentException('Limit must be in range 1-200');
+        }
+
+        $params = [
+            'order' => $order,
+            'limit' => $limit,
+        ];
+        if (isset($cursor)) {
+            $params['cursor'] = $cursor;
+        }
+
+        $url = '/ledgers' . '?' . http_build_query($params);
+        $records = $this->apiClient->get($url)->getRecords();
+        return array_map(fn ($r) => Ledger::fromRawResponseData($r), $records);
     }
 
     /**
