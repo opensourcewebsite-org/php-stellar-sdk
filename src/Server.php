@@ -10,7 +10,6 @@ use ZuluCrypto\StellarSdk\Model\Account;
 use ZuluCrypto\StellarSdk\Model\Payment;
 use ZuluCrypto\StellarSdk\Signing\SigningInterface;
 use ZuluCrypto\StellarSdk\Transaction\TransactionBuilder;
-use ZuluCrypto\StellarSdk\XdrModel\AccountId;
 use ZuluCrypto\StellarSdk\XdrModel\Asset;
 
 class Server
@@ -106,6 +105,24 @@ class Server
     }
 
     /**
+     * @param \ZuluCrypto\StellarSdk\XdrModel\Asset $asset
+     * @throws InvalidArgumentException
+     * @return string
+     */
+    private static function encodeAsset(Asset $asset): string
+    {
+        switch ($asset->getType()) {
+            case Asset::TYPE_NATIVE:
+                return 'native';
+            case Asset::TYPE_ALPHANUM_4:
+            case Asset::TYPE_ALPHANUM_12:
+                return $asset->getAssetCode() . ':' . $asset->getIssuer()->getAccountIdString();
+            default:
+                throw new \InvalidArgumentException('Invalid asset type ' . $asset->getType());
+        }
+    }
+
+    /**
      * Returns all accounts who are trustees to a specific asset.
      *
      * @param string $assetCode
@@ -117,19 +134,6 @@ class Server
      */
     public function getAccountsForAsset(string $assetCode, string $assetIssuerId, string $order = 'asc', int $limit = 10): array
     {
-        function encodeAsset(Asset $asset): string
-        {
-            switch ($asset->getType()) {
-                case Asset::TYPE_NATIVE:
-                    return 'native';
-                case Asset::TYPE_ALPHANUM_4:
-                case Asset::TYPE_ALPHANUM_12:
-                    return $asset->getAssetCode() . ':' . $asset->getIssuer()->getAccountIdString();
-                default:
-                    throw new \InvalidArgumentException('Invalid asset type ' . $asset->getType());
-            }
-        }
-
         $asset = Asset::newCustomAsset($assetCode, $assetIssuerId);
 
         if (!in_array($order, ['asc', 'desc'])) {
@@ -142,7 +146,7 @@ class Server
         }
 
         $params = [
-            'asset' => encodeAsset($asset),
+            'asset' => self::encodeAsset($asset),
             'order' => $order,
             'limit' => $limit,
         ];
