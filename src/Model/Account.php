@@ -35,7 +35,7 @@ class Account extends RestApiModel
 
     private ?string $homeDomain;
 
-    private int $lastModifiedLedger;
+    private string $lastModifiedLedger;
 
     /**
      * @var array|AssetAmount[]
@@ -475,9 +475,9 @@ class Account extends RestApiModel
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function getLastModifiedLedger(): int
+    public function getLastModifiedLedger(): string
     {
         return $this->lastModifiedLedger;
     }
