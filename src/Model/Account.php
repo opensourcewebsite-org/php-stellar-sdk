@@ -2,6 +2,9 @@
 
 namespace ZuluCrypto\StellarSdk\Model;
 
+use ErrorException;
+use Exception;
+use InvalidArgumentException;
 use phpseclib3\Math\BigInteger;
 use ZuluCrypto\StellarSdk\Horizon\Api\HorizonResponse;
 use ZuluCrypto\StellarSdk\Keypair;
@@ -20,32 +23,32 @@ class Account extends RestApiModel
 {
     protected $id;
 
-    private $accountId;
+    private string $accountId;
 
     /**
      * NOTE: for the BigInteger representation of this, see $this->getSequenceAsBigInteger()
      * @var string
      */
-    private $sequence;
+    private string $sequence;
 
-    private $subentryCount;
+    private int $subentryCount;
 
-    private $homeDomain;
+    private ?string $homeDomain;
 
-    private $lastModifiedLedger;
+    private int $lastModifiedLedger;
 
     /**
      * @var array|AssetAmount[]
      */
-    private $balances;
+    private array $balances;
 
-    private $thresholds;
+    private array $thresholds;
 
-    private $flags;
+    private ?array $flags;
 
-    private $signers;
+    private ?array $signers;
 
-    private $data;
+    private array $data;
 
     /**
      * @param HorizonResponse $response
@@ -66,12 +69,12 @@ class Account extends RestApiModel
     {
         // 404 means the account does not currently exist (it may have been merged)
         if (isset($rawData['status']) && $rawData['status'] == 404) {
-            throw new \InvalidArgumentException('Account does not exist');
+            throw new InvalidArgumentException('Account does not exist');
         }
 
         // Generic catch for other errors
         if (isset($rawData['status']) && $rawData['status'] !== 200) {
-            throw new \InvalidArgumentException('Cannot create account due to error response');
+            throw new InvalidArgumentException('Cannot create account due to error response');
         }
 
         $object = new Account($rawData['id']);
@@ -114,15 +117,15 @@ class Account extends RestApiModel
      * Note that this doesn't necessarily mean the account is funded or exists
      * on the network. To check that, use the Server::getAccount() method.
      *
-     * @param $accountId
+     * @param string $accountId
      * @return bool
      */
     public static function isValidAccount(string $accountId): bool
     {
         // Validate that keypair passes checksum
         try {
-            $keypair = Keypair::newFromPublicKey($accountId);
-        } catch (\Exception $e) {
+            Keypair::newFromPublicKey($accountId);
+        } catch (Exception $e) {
             return false;
         }
 
@@ -143,7 +146,7 @@ class Account extends RestApiModel
      * @return HorizonResponse
      * @throws \ErrorException
      */
-    public function sendNativeAsset($toAccountId, $amount, $signingKeys)
+    public function sendNativeAsset($toAccountId, $amount, $signingKeys): HorizonResponse
     {
         $payment = Payment::newNativeAssetPayment($toAccountId, $amount, $this->accountId);
 
@@ -156,12 +159,12 @@ class Account extends RestApiModel
      * @return HorizonResponse
      * @throws \ErrorException
      */
-    public function sendPayment(Payment $payment, $signingKeys)
+    public function sendPayment(Payment $payment, $signingKeys): HorizonResponse
     {
         if ($payment->isNativeAsset()) {
             $paymentOp = PaymentOp::newNativePayment($payment->getDestinationAccountId(), $payment->getAmount()->getBalanceAsStroops());
         } else {
-            throw new \ErrorException('Not implemented');
+            throw new ErrorException('Not implemented');
         }
 
         $transaction = (new TransactionBuilder($this->accountId))
@@ -176,10 +179,12 @@ class Account extends RestApiModel
 
     /**
      * @param null $sinceCursor
-     * @param int  $limit
+     * @param int $limit
+     * @param string $order
      * @return Transaction[]
+     * @throws \ZuluCrypto\StellarSdk\Horizon\Exception\HorizonException
      */
-    public function getTransactions($sinceCursor = null, $limit = 50, $order = 'asc')
+    public function getTransactions($sinceCursor = null, int $limit = 50, string $order = 'asc'): array
     {
         $transactions = [];
 
@@ -215,11 +220,11 @@ class Account extends RestApiModel
 
     /**
      * @param null $sinceCursor
-     * @param int  $limit
+     * @param int $limit
      * @return array
      * @throws \ZuluCrypto\StellarSdk\Horizon\Exception\HorizonException
      */
-    public function getEffects($sinceCursor = null, $limit = 50)
+    public function getEffects($sinceCursor = null, int $limit = 50): array
     {
         $effects = [];
         $url = sprintf('/accounts/%s/effects', $this->accountId);
@@ -251,10 +256,12 @@ class Account extends RestApiModel
 
     /**
      * @param null $sinceCursor
-     * @param int  $limit
+     * @param int $limit
+     * @param string $order
      * @return array|AssetTransferInterface[]|RestApiModel[]
+     * @throws \ZuluCrypto\StellarSdk\Horizon\Exception\HorizonException
      */
-    public function getPayments($sinceCursor = null, $limit = 50, $order = 'asc')
+    public function getPayments($sinceCursor = null, int $limit = 50, string $order = 'asc'): array
     {
         $results = [];
 
@@ -305,10 +312,10 @@ class Account extends RestApiModel
     /**
      * See ApiClient::streamPayments
      *
-     * @param null $sinceCursor
-     * @param callable $callback
+     * @param string $sinceCursor
+     * @param callable|null $callback
      */
-    public function streamPayments($sinceCursor = 'now', callable $callback = null)
+    public function streamPayments(string $sinceCursor = 'now', callable $callback = null)
     {
         $this->apiClient->streamPayments($sinceCursor, $callback);
     }
@@ -316,7 +323,7 @@ class Account extends RestApiModel
     /**
      * Returns a string representing the native balance
      *
-     * @return string
+     * @return int|number
      * @throws \ErrorException
      */
     public function getNativeBalance()
@@ -338,7 +345,7 @@ class Account extends RestApiModel
      * @return string
      * @throws \ErrorException
      */
-    public function getNativeBalanceStroops()
+    public function getNativeBalanceStroops(): string
     {
         MathSafety::require64Bit();
 
@@ -357,7 +364,7 @@ class Account extends RestApiModel
      * @param Asset $asset
      * @return null|string
      */
-    public function getCustomAssetBalanceValue(Asset $asset)
+    public function getCustomAssetBalanceValue(Asset $asset): ?string
     {
         foreach ($this->getBalances() as $balance) {
             if ($balance->getAssetCode() !== $asset->getAssetCode()) {
@@ -379,7 +386,7 @@ class Account extends RestApiModel
      * @param Asset $asset
      * @return null|AssetAmount
      */
-    public function getCustomAssetBalance(Asset $asset)
+    public function getCustomAssetBalance(Asset $asset): ?AssetAmount
     {
         foreach ($this->getBalances() as $balance) {
             if ($balance->getAssetCode() !== $asset->getAssetCode()) {
@@ -402,7 +409,7 @@ class Account extends RestApiModel
      * @return null|string
      * @throws \ErrorException
      */
-    public function getCustomAssetBalanceStroops(Asset $asset)
+    public function getCustomAssetBalanceStroops(Asset $asset): ?string
     {
         MathSafety::require64Bit();
 
@@ -425,7 +432,7 @@ class Account extends RestApiModel
      *
      * @return array
      */
-    public function getThresholds()
+    public function getThresholds(): array
     {
         return $this->thresholds;
     }
@@ -454,7 +461,7 @@ class Account extends RestApiModel
      *
      * @return string
      */
-    public function getSequence()
+    public function getSequence(): string
     {
         return $this->sequence;
     }
@@ -478,7 +485,7 @@ class Account extends RestApiModel
     /**
      * @return BigInteger
      */
-    public function getSequenceAsBigInteger()
+    public function getSequenceAsBigInteger(): BigInteger
     {
         return new BigInteger($this->sequence);
     }
@@ -486,7 +493,7 @@ class Account extends RestApiModel
     /**
      * @return array|AssetAmount[]
      */
-    public function getBalances()
+    public function getBalances(): array
     {
         return $this->balances;
     }
@@ -498,7 +505,7 @@ class Account extends RestApiModel
      *
      * @return array
      */
-    public function getData()
+    public function getData(): array
     {
         return $this->data;
     }
@@ -510,5 +517,13 @@ class Account extends RestApiModel
     public function getAccountId(): string
     {
         return $this->accountId;
+    }
+
+    /**
+     * @return int
+     */
+    public function getSubentryCount(): int
+    {
+        return $this->subentryCount;
     }
 }
