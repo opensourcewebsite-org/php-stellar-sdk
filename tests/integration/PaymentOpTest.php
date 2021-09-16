@@ -1,8 +1,6 @@
 <?php
 
-
 namespace ZuluCrypto\StellarSdk\Test\Integration;
-
 
 use phpseclib3\Math\BigInteger;
 use ZuluCrypto\StellarSdk\Keypair;

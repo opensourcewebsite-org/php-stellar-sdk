@@ -1,8 +1,6 @@
 <?php
 
-
 namespace ZuluCrypto\StellarSdk\XdrModel\Operation;
-
 
 use phpseclib3\Math\BigInteger;
 use ZuluCrypto\StellarSdk\Keypair;
@@ -143,7 +141,9 @@ class PathPaymentOp extends Operation
     public function addPath(Asset $path)
     {
         // a maximum of 5 paths are supported
-        if (count($this->paths) >= 5) throw new \InvalidArgumentException('Too many paths: PathPaymentOp can contain a maximum of 5 paths');
+        if (count($this->paths) >= 5) {
+            throw new \InvalidArgumentException('Too many paths: PathPaymentOp can contain a maximum of 5 paths');
+        }
 
         $this->paths->append($path);
 

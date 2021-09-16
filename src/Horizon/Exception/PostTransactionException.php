@@ -1,8 +1,6 @@
 <?php
 
-
 namespace ZuluCrypto\StellarSdk\Horizon\Exception;
-
 
 use GuzzleHttp\Exception\ClientException;
 use ZuluCrypto\StellarSdk\Xdr\XdrBuffer;

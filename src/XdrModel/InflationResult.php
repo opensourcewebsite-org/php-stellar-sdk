@@ -1,15 +1,13 @@
 <?php
 
-
 namespace ZuluCrypto\StellarSdk\XdrModel;
-
 
 use ZuluCrypto\StellarSdk\Xdr\XdrBuffer;
 
 class InflationResult extends OperationResult
 {
     // https://github.com/stellar/stellar-core/blob/3c4e356803175f6c2645e4437881cf07522df94d/src/xdr/Stellar-transaction.x#L606
-    const NOT_TIME                  = 'inflation_not_time';
+    public const NOT_TIME                  = 'inflation_not_time';
 
     /**
      * @var InflationPayout[]

@@ -1,6 +1,5 @@
 <?php
 
-
 namespace ZuluCrypto\StellarSdk\XdrModel;
 
 use ZuluCrypto\StellarSdk\Xdr\XdrBuffer;
@@ -8,23 +7,23 @@ use ZuluCrypto\StellarSdk\Xdr\XdrBuffer;
 class ManageOfferResult extends OperationResult
 {
     // https://github.com/stellar/stellar-core/blob/3c4e356803175f6c2645e4437881cf07522df94d/src/xdr/Stellar-transaction.x#L457
-    const MALFORMED             = 'manage_offer_malformed';
-    const SELL_NO_TRUST         = 'manage_offer_sell_no_trust';         // no trustline for what's being sold
-    const BUY_NO_TRUST          = 'manage_offer_buy_no_trust';
-    const SELL_NOT_AUTHORIZED   = 'manage_offer_sell_not_authorized';
-    const BUY_NOT_AUTHORIZED    = 'manage_offer_buy_not_authorized';
-    const LINE_FULL             = 'manage_offer_line_full';
-    const UNDERFUNDED           = 'manage_offer_underfunded';
-    const CROSS_SELF            = 'manage_offer_cross_self';
-    const SELL_NO_ISSUER        = 'manage_offer_sell_no_issuer';
-    const BUY_NO_ISSUER         = 'manage_offer_buy_no_issuer';
-    const NOT_FOUND             = 'manage_offer_not_found';             // offer ID doesn't match an existing offer
-    const LOW_RESERVE           = 'manage_offer_low_reserve';           // not enough funds to create a new offer
+    public const MALFORMED             = 'manage_offer_malformed';
+    public const SELL_NO_TRUST         = 'manage_offer_sell_no_trust';         // no trustline for what's being sold
+    public const BUY_NO_TRUST          = 'manage_offer_buy_no_trust';
+    public const SELL_NOT_AUTHORIZED   = 'manage_offer_sell_not_authorized';
+    public const BUY_NOT_AUTHORIZED    = 'manage_offer_buy_not_authorized';
+    public const LINE_FULL             = 'manage_offer_line_full';
+    public const UNDERFUNDED           = 'manage_offer_underfunded';
+    public const CROSS_SELF            = 'manage_offer_cross_self';
+    public const SELL_NO_ISSUER        = 'manage_offer_sell_no_issuer';
+    public const BUY_NO_ISSUER         = 'manage_offer_buy_no_issuer';
+    public const NOT_FOUND             = 'manage_offer_not_found';             // offer ID doesn't match an existing offer
+    public const LOW_RESERVE           = 'manage_offer_low_reserve';           // not enough funds to create a new offer
 
     // Constants for checking ManageOfferEffect
-    const EFFECT_CREATED        = 0;
-    const EFFECT_UPDATED        = 1;
-    const EFFECT_DELETED        = 2;
+    public const EFFECT_CREATED        = 0;
+    public const EFFECT_UPDATED        = 1;
+    public const EFFECT_DELETED        = 2;
 
     /**
      * @var ClaimOfferAtom[]

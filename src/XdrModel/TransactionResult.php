@@ -1,8 +1,6 @@
 <?php
 
-
 namespace ZuluCrypto\StellarSdk\XdrModel;
-
 
 use phpseclib3\Math\BigInteger;
 use ZuluCrypto\StellarSdk\Model\StellarAmount;
@@ -10,18 +8,18 @@ use ZuluCrypto\StellarSdk\Xdr\XdrBuffer;
 
 class TransactionResult
 {
-    const SUCCESS               = 'success';    // all operations suceeded
-    const FAILED                = 'failed';   // one or more operations failed
-    const TOO_EARLY             = 'too_early';   // ledger close time before min timebounds
-    const TOO_LATE              = 'too_late';   // ledger close time after max timebounds
-    const MISSING_OPERATION     = 'missing_operation';   // no operations specified
-    const BAD_SEQ               = 'bad_seq';   // sequence number not correct for source account
-    const BAD_AUTH              = 'bad_auth';   // too few valid signatures or wrong network
-    const INSUFFICIENT_BALANCE  = 'insufficient_balance';   // account would be below the reserve after this tx
-    const NO_ACCOUNT            = 'no_account';   // source account not found
-    const INSUFFICIENT_FEE      = 'insufficient_fee';   // fee was too small
-    const BAD_AUTH_EXTRA        = 'bad_auth_extra';  // included extra signatures
-    const INTERNAL_ERROR        = 'internal_error';  // unknown error
+    public const SUCCESS               = 'success';    // all operations suceeded
+    public const FAILED                = 'failed';   // one or more operations failed
+    public const TOO_EARLY             = 'too_early';   // ledger close time before min timebounds
+    public const TOO_LATE              = 'too_late';   // ledger close time after max timebounds
+    public const MISSING_OPERATION     = 'missing_operation';   // no operations specified
+    public const BAD_SEQ               = 'bad_seq';   // sequence number not correct for source account
+    public const BAD_AUTH              = 'bad_auth';   // too few valid signatures or wrong network
+    public const INSUFFICIENT_BALANCE  = 'insufficient_balance';   // account would be below the reserve after this tx
+    public const NO_ACCOUNT            = 'no_account';   // source account not found
+    public const INSUFFICIENT_FEE      = 'insufficient_fee';   // fee was too small
+    public const BAD_AUTH_EXTRA        = 'bad_auth_extra';  // included extra signatures
+    public const INTERNAL_ERROR        = 'internal_error';  // unknown error
 
     /**
      * @var StellarAmount

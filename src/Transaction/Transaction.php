@@ -1,6 +1,5 @@
 <?php
 
-
 namespace ZuluCrypto\StellarSdk\Transaction;
 
 use phpseclib3\Math\BigInteger;
@@ -11,7 +10,6 @@ use ZuluCrypto\StellarSdk\XdrModel\AccountId;
 use ZuluCrypto\StellarSdk\XdrModel\Memo;
 use ZuluCrypto\StellarSdk\XdrModel\Operation\Operation;
 use ZuluCrypto\StellarSdk\XdrModel\TimeBounds;
-
 
 /**
  * NOTE: currently this class is only used for parsing from XDR and is not returned

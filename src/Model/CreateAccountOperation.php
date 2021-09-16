@@ -1,8 +1,6 @@
 <?php
 
-
 namespace ZuluCrypto\StellarSdk\Model;
-
 
 class CreateAccountOperation extends Operation implements AssetTransferInterface
 {

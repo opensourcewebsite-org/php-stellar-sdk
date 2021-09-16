@@ -1,11 +1,9 @@
 <?php
 
-
 namespace ZuluCrypto\StellarSdk\Xdr;
 
 use phpseclib3\Math\BigInteger;
 use ZuluCrypto\StellarSdk\Xdr\Iface\XdrEncodableInterface;
-
 
 /**
  * See: https://tools.ietf.org/html/rfc4506
@@ -34,8 +32,12 @@ class XdrEncoder
     public static function opaqueFixed($value, $expectedLength = null, $padUnexpectedLength = false)
     {
         // Length greater than expected length is always an error
-        if ($expectedLength && strlen($value) > $expectedLength) throw new \InvalidArgumentException(sprintf('Unexpected length for value. Has length %s, expected %s', strlen($value), $expectedLength));
-        if ($expectedLength && !$padUnexpectedLength && strlen($value) != $expectedLength) throw new \InvalidArgumentException(sprintf('Unexpected length for value. Has length %s, expected %s', strlen($value), $expectedLength));
+        if ($expectedLength && strlen($value) > $expectedLength) {
+            throw new \InvalidArgumentException(sprintf('Unexpected length for value. Has length %s, expected %s', strlen($value), $expectedLength));
+        }
+        if ($expectedLength && !$padUnexpectedLength && strlen($value) != $expectedLength) {
+            throw new \InvalidArgumentException(sprintf('Unexpected length for value. Has length %s, expected %s', strlen($value), $expectedLength));
+        }
 
         if ($expectedLength && strlen($value) != $expectedLength) {
             $value = self::applyPadding($value, $expectedLength);
@@ -55,7 +57,9 @@ class XdrEncoder
     public static function opaqueVariable($value)
     {
         $maxLength = pow(2, 32) - 1;
-        if (strlen($value) > $maxLength) throw new \InvalidArgumentException(sprintf('Value of length %s is greater than the maximum allowed length of %s', strlen($value), $maxLength));
+        if (strlen($value) > $maxLength) {
+            throw new \InvalidArgumentException(sprintf('Value of length %s is greater than the maximum allowed length of %s', strlen($value), $maxLength));
+        }
 
         $bytes = '';
 
@@ -167,7 +171,9 @@ class XdrEncoder
 
     public static function unsignedInteger64($value)
     {
-        if ($value > PHP_INT_MAX) throw new \InvalidArgumentException('value is greater than PHP_INT_MAX');
+        if ($value > PHP_INT_MAX) {
+            throw new \InvalidArgumentException('value is greater than PHP_INT_MAX');
+        }
 
         // unsigned 64-bit big-endian
         return pack('J', $value);
@@ -201,9 +207,13 @@ class XdrEncoder
      */
     public static function string($value, $maximumLength = null)
     {
-        if ($maximumLength === null) $maximumLength = pow(2, 32) - 1;
+        if ($maximumLength === null) {
+            $maximumLength = pow(2, 32) - 1;
+        }
 
-        if (strlen($value) > $maximumLength) throw new \InvalidArgumentException('string exceeds maximum length');
+        if (strlen($value) > $maximumLength) {
+            throw new \InvalidArgumentException('string exceeds maximum length');
+        }
 
         $bytes = self::unsignedInteger(strlen($value));
         $bytes .= $value;
@@ -235,8 +245,7 @@ class XdrEncoder
         if ($value !== null) {
             $bytes .= self::boolean(true);
             $bytes .= $value->toXdr();
-        }
-        else {
+        } else {
             $bytes .= self::boolean(false);
         }
 
@@ -254,8 +263,7 @@ class XdrEncoder
         if ($value !== null) {
             $bytes .= self::boolean(true);
             $bytes .= static::unsignedInteger($value);
-        }
-        else {
+        } else {
             $bytes .= self::boolean(false);
         }
 
@@ -273,8 +281,7 @@ class XdrEncoder
         if ($value !== null) {
             $bytes .= self::boolean(true);
             $bytes .= static::string($value, $maximumLength);
-        }
-        else {
+        } else {
             $bytes .= self::boolean(false);
         }
 
@@ -294,14 +301,15 @@ class XdrEncoder
     private static function applyPadding($value, $targetLength = 4, $rightPadding = true)
     {
         // No padding necessary if it's a multiple of 4 bytes
-        if (strlen($value) % $targetLength === 0) return $value;
+        if (strlen($value) % $targetLength === 0) {
+            return $value;
+        }
 
         $numPaddingChars = $targetLength - (strlen($value) % $targetLength);
 
         if ($rightPadding) {
             return $value . str_repeat(chr(0), $numPaddingChars);
-        }
-        else {
+        } else {
             return str_repeat(chr(0), $numPaddingChars) . $value;
         }
     }

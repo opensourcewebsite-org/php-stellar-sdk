@@ -1,19 +1,17 @@
 <?php
 
-
 namespace ZuluCrypto\StellarSdk\XdrModel;
-
 
 use ZuluCrypto\StellarSdk\Xdr\XdrBuffer;
 
 class AllowTrustResult extends OperationResult
 {
     // https://github.com/stellar/stellar-core/blob/3c4e356803175f6c2645e4437881cf07522df94d/src/xdr/Stellar-transaction.x#L562
-    const MALFORMED                 = 'allow_trust_malformed';
-    const NO_TRUST_LINE             = 'allow_trust_no_trust_line';
-    const TRUST_NOT_REQUIRED        = 'allow_trust_trust_not_required';
-    const CANT_REVOKE               = 'allow_trust_trust_cant_revoke';
-    const SELF_NOT_ALLOWED          = 'allow_trust_trust_self_not_allowed';
+    public const MALFORMED                 = 'allow_trust_malformed';
+    public const NO_TRUST_LINE             = 'allow_trust_no_trust_line';
+    public const TRUST_NOT_REQUIRED        = 'allow_trust_trust_not_required';
+    public const CANT_REVOKE               = 'allow_trust_trust_cant_revoke';
+    public const SELF_NOT_ALLOWED          = 'allow_trust_trust_self_not_allowed';
 
     /**
      * @deprecated Do not call this method directly. Instead, use OperationResult::fromXdr

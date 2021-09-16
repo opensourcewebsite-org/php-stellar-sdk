@@ -1,8 +1,6 @@
 <?php
 
-
 namespace ZuluCrypto\StellarSdk\Horizon\Exception;
-
 
 use GuzzleHttp\Exception\ClientException;
 use Throwable;
@@ -65,7 +63,7 @@ class HorizonException extends \ErrorException
      * @var array
      */
     protected $raw;
-    
+
     /**
      * Result codes for Horizon operations errors.
      *
@@ -96,9 +94,15 @@ class HorizonException extends \ErrorException
         $exception->requestedUrl = $requestedUrl;
         $exception->httpMethod = $httpMethod;
 
-        if (isset($raw['type'])) $exception->type = $raw['type'];
-        if (isset($raw['status'])) $exception->httpStatusCode = $raw['status'];
-        if (isset($raw['detail'])) $exception->detail = $raw['detail'];
+        if (isset($raw['type'])) {
+            $exception->type = $raw['type'];
+        }
+        if (isset($raw['status'])) {
+            $exception->httpStatusCode = $raw['status'];
+        }
+        if (isset($raw['detail'])) {
+            $exception->detail = $raw['detail'];
+        }
         if (!empty($raw['extras']['result_codes']['operations'])) {
             $exception->operationResultCodes = $raw['extras']['result_codes']['operations'];
         }
@@ -127,11 +131,13 @@ class HorizonException extends \ErrorException
     /**
      * @return string
      */
-    protected function buildMessage() {
+    protected function buildMessage()
+    {
         // Additional data used to help the user resolve the error
         $hint = '';
 
-        $message = sprintf('[%s] %s: %s (Requested URL: %s %s)',
+        $message = sprintf(
+            '[%s] %s: %s (Requested URL: %s %s)',
             $this->httpStatusCode,
             $this->title,
             $this->detail,
@@ -143,7 +149,7 @@ class HorizonException extends \ErrorException
             $message .= sprintf(" Tx Result: %s", $this->transactionResultCode);
         }
         if (!empty($this->operationResultCodes)) {
-            $message .= sprintf(" Op Results: %s", print_r($this->operationResultCodes,true));
+            $message .= sprintf(" Op Results: %s", print_r($this->operationResultCodes, true));
         }
 
         // Rate limit exceeded
@@ -265,23 +271,23 @@ class HorizonException extends \ErrorException
     {
         $this->clientException = $clientException;
     }
-    
-     /**
-     * Get the result codes from Horizon Response.
-     * 
-     * @return array
-     */
-    function getOperationResultCodes()
+
+    /**
+    * Get the result codes from Horizon Response.
+    *
+    * @return array
+    */
+    public function getOperationResultCodes()
     {
         return $this->operationResultCodes;
     }
-    
+
     /**
      * Set the result codes from Horizon Response.
-     * 
+     *
      * @param array $operationResultCodes
      */
-    function setOperationResultCodes($operationResultCodes)
+    public function setOperationResultCodes($operationResultCodes)
     {
         $this->operationResultCodes = $operationResultCodes;
     }

@@ -1,10 +1,8 @@
 <?php
 
-
 namespace ZuluCrypto\StellarSdk\Xdr;
 
 use phpseclib3\Math\BigInteger;
-
 
 /**
  * Enables easy iteration through a blob of XDR data
@@ -166,7 +164,9 @@ class XdrBuffer
     {
         $strLen = $this->readUnsignedInteger();
         $paddedLength = $this->roundTo4($strLen);
-        if ($strLen > $maxLength) throw new \InvalidArgumentException(sprintf('maxLength of %s exceeded (string is %s bytes)', $maxLength, $strLen));
+        if ($strLen > $maxLength) {
+            throw new \InvalidArgumentException(sprintf('maxLength of %s exceeded (string is %s bytes)', $maxLength, $strLen));
+        }
 
         $this->assertBytesRemaining($paddedLength);
 
@@ -211,7 +211,9 @@ class XdrBuffer
     protected function roundTo4($number)
     {
         $remainder = $number % 4;
-        if (!$remainder) return $number;
+        if (!$remainder) {
+            return $number;
+        }
 
         return $number + (4 - $remainder);
     }

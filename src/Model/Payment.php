@@ -1,8 +1,6 @@
 <?php
 
-
 namespace ZuluCrypto\StellarSdk\Model;
-
 
 /**
  * See: https://www.stellar.org/developers/horizon/reference/resources/operation.html#payment
@@ -36,7 +34,9 @@ class Payment extends Operation implements AssetTransferInterface
      */
     public static function fromRawResponseData($rawData)
     {
-        if ($rawData['type'] != Operation::TYPE_PAYMENT) throw new \InvalidArgumentException(sprintf('Attempted to create a Payment from invalid type %s', $rawData['type']));
+        if ($rawData['type'] != Operation::TYPE_PAYMENT) {
+            throw new \InvalidArgumentException(sprintf('Attempted to create a Payment from invalid type %s', $rawData['type']));
+        }
 
         $object = new Payment($rawData['id']);
 
@@ -57,7 +57,9 @@ class Payment extends Operation implements AssetTransferInterface
         $payment->amount = new AssetAmount($amount);
         $payment->fromAccountId = $fromAccountId;
 
-        if ($sourceAccountId === null) $payment->sourceAccountId = $fromAccountId;
+        if ($sourceAccountId === null) {
+            $payment->sourceAccountId = $fromAccountId;
+        }
 
         return $payment;
     }
@@ -82,8 +84,12 @@ class Payment extends Operation implements AssetTransferInterface
 
         $this->sourceAccountId = $rawData['source_account'];
 
-        if (isset($rawData['from'])) $this->fromAccountId = $rawData['from'];
-        if (isset($rawData['to'])) $this->toAccountId = $rawData['to'];
+        if (isset($rawData['from'])) {
+            $this->fromAccountId = $rawData['from'];
+        }
+        if (isset($rawData['to'])) {
+            $this->toAccountId = $rawData['to'];
+        }
 
         $assetAmount = null;
         // Native assets

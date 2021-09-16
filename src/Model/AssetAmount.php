@@ -1,20 +1,18 @@
 <?php
 
-
 namespace ZuluCrypto\StellarSdk\Model;
-
 
 use phpseclib3\Math\BigInteger;
 
 class AssetAmount
 {
-    const ASSET_TYPE_NATIVE = 'native';
-    const ASSET_TYPE_CREDIT_ALPHANUM4 = 'credit_alphanum4';
-    const ASSET_TYPE_CREDIT_ALPHANUM12 = 'credit_alphanum12';
+    public const ASSET_TYPE_NATIVE = 'native';
+    public const ASSET_TYPE_CREDIT_ALPHANUM4 = 'credit_alphanum4';
+    public const ASSET_TYPE_CREDIT_ALPHANUM12 = 'credit_alphanum12';
 
     // Balances are represented in most UIs with a decimal point but stored
     // in the XDR structure and this class as signed 64-bit integers
-    const ASSET_SCALE = 10000000; // 10 million
+    public const ASSET_SCALE = 10000000; // 10 million
 
     /**
      * Asset type, see ASSET_TYPE_* constants
@@ -110,7 +108,9 @@ class AssetAmount
 
     public function getAssetCode()
     {
-        if ($this->isNativeAsset()) return 'XLM';
+        if ($this->isNativeAsset()) {
+            return 'XLM';
+        }
 
         return $this->assetCode;
     }

@@ -1,8 +1,6 @@
 <?php
 
-
 namespace ZuluCrypto\StellarSdk\XdrModel\Operation;
-
 
 use ZuluCrypto\StellarSdk\Util\Debug;
 use ZuluCrypto\StellarSdk\Xdr\XdrBuffer;
@@ -47,8 +45,7 @@ class ManageDataOp extends Operation
         if ($this->value) {
             $bytes .= XdrEncoder::boolean(true);
             $bytes .= XdrEncoder::opaqueVariable($this->value);
-        }
-        else {
+        } else {
             $bytes .= XdrEncoder::boolean(false);
         }
 
@@ -86,7 +83,9 @@ class ManageDataOp extends Operation
      */
     public function setKey($key)
     {
-        if (strlen($key) > 64) throw new \InvalidArgumentException('key cannot be longer than 64 characters');
+        if (strlen($key) > 64) {
+            throw new \InvalidArgumentException('key cannot be longer than 64 characters');
+        }
 
         $this->key = $key;
     }
@@ -104,7 +103,9 @@ class ManageDataOp extends Operation
      */
     public function setValue($value = null)
     {
-        if (strlen($value) > 64) throw new \InvalidArgumentException('value cannot be longer than 64 characters');
+        if (strlen($value) > 64) {
+            throw new \InvalidArgumentException('value cannot be longer than 64 characters');
+        }
 
         $this->value = $value;
     }

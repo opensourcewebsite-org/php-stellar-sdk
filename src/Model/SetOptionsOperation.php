@@ -1,8 +1,6 @@
 <?php
 
-
 namespace ZuluCrypto\StellarSdk\Model;
-
 
 /**
  * See: https://www.stellar.org/developers/horizon/reference/resources/operation.html#set-options
@@ -111,18 +109,38 @@ class SetOptionsOperation extends Operation
     {
         parent::loadFromRawResponseData($rawData);
 
-        if (isset($rawData['signer_key'])) $this->signerKey = $rawData['signer_key'];
-        if (isset($rawData['signer_weight'])) $this->signerWeight = $rawData['signer_weight'];
-        if (isset($rawData['master_key_weight'])) $this->masterKeyWeight = $rawData['master_key_weight'];
+        if (isset($rawData['signer_key'])) {
+            $this->signerKey = $rawData['signer_key'];
+        }
+        if (isset($rawData['signer_weight'])) {
+            $this->signerWeight = $rawData['signer_weight'];
+        }
+        if (isset($rawData['master_key_weight'])) {
+            $this->masterKeyWeight = $rawData['master_key_weight'];
+        }
 
-        if (isset($rawData['low_threshold'])) $this->lowThreshold = $rawData['low_threshold'];
-        if (isset($rawData['med_threshold'])) $this->mediumThreshold = $rawData['med_threshold'];
-        if (isset($rawData['high_threshold'])) $this->highThreshold = $rawData['high_threshold'];
+        if (isset($rawData['low_threshold'])) {
+            $this->lowThreshold = $rawData['low_threshold'];
+        }
+        if (isset($rawData['med_threshold'])) {
+            $this->mediumThreshold = $rawData['med_threshold'];
+        }
+        if (isset($rawData['high_threshold'])) {
+            $this->highThreshold = $rawData['high_threshold'];
+        }
 
-        if (isset($rawData['set_flags'])) $this->setFlagsI = $rawData['set_flags'];
-        if (isset($rawData['set_flags_s'])) $this->setFlagsS = $rawData['set_flags_s'];
-        if (isset($rawData['clear_flags'])) $this->clearFlagsI = $rawData['clear_flags'];
-        if (isset($rawData['clear_flags_s'])) $this->clearFlagsS = $rawData['clear_flags_s'];
+        if (isset($rawData['set_flags'])) {
+            $this->setFlagsI = $rawData['set_flags'];
+        }
+        if (isset($rawData['set_flags_s'])) {
+            $this->setFlagsS = $rawData['set_flags_s'];
+        }
+        if (isset($rawData['clear_flags'])) {
+            $this->clearFlagsI = $rawData['clear_flags'];
+        }
+        if (isset($rawData['clear_flags_s'])) {
+            $this->clearFlagsS = $rawData['clear_flags_s'];
+        }
     }
 
     /**

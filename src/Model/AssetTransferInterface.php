@@ -1,8 +1,6 @@
 <?php
 
-
 namespace ZuluCrypto\StellarSdk\Model;
-
 
 /**
  * Represents an asset transfer. This could be a payment, account creation, path

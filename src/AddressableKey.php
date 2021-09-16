@@ -1,13 +1,11 @@
 <?php
 
-
 namespace ZuluCrypto\StellarSdk;
 
 use Base32\Base32;
 use ParagonIE\Sodium\Core\Ed25519;
 use ZuluCrypto\StellarSdk\Util\Checksum;
 use ZuluCrypto\StellarSdk\Util\Debug;
-
 
 /**
  * Implements a string key that can be used in various locations in the Stellar
@@ -18,20 +16,22 @@ use ZuluCrypto\StellarSdk\Util\Debug;
 class AddressableKey
 {
     // Encoded stellar addresses (base-32 encodes to 'G...')
-    const VERSION_BYTE_ACCOUNT_ID = 6 << 3;
+    public const VERSION_BYTE_ACCOUNT_ID = 6 << 3;
 
     // Encoded stellar seeds (base-32 encodes to 'S...')
-    const VERSION_BYTE_SEED = 18 << 3;
+    public const VERSION_BYTE_SEED = 18 << 3;
 
     // Encoded stellar hashTx (base-32 encodes to 'T...')
-    const VERSION_BYTE_HASH_TX = 19 << 3;
+    public const VERSION_BYTE_HASH_TX = 19 << 3;
 
     // Encoded stellar hashX (base-32 encodes to 'X...')
-    const VERSION_BYTE_HASH_X = 23 << 3;
+    public const VERSION_BYTE_HASH_X = 23 << 3;
 
     public static function seedFromRawBytes($rawBytes)
     {
-        if (strlen($rawBytes) != 32) throw new \InvalidArgumentException('$rawBytes must be 32 bytes');
+        if (strlen($rawBytes) != 32) {
+            throw new \InvalidArgumentException('$rawBytes must be 32 bytes');
+        }
 
         // Must be interpreted as a byte
         $version = pack('C', self::VERSION_BYTE_SEED);
@@ -58,7 +58,7 @@ class AddressableKey
 
     /**
      * Converts $rawBytes into a public account ID (G...)
-     * 
+     *
      * @param $rawBytes
      * @return string
      */

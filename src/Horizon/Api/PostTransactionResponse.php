@@ -1,8 +1,6 @@
 <?php
 
-
 namespace ZuluCrypto\StellarSdk\Horizon\Api;
-
 
 use ZuluCrypto\StellarSdk\Xdr\XdrBuffer;
 use ZuluCrypto\StellarSdk\XdrModel\TransactionResult;
@@ -38,7 +36,9 @@ class PostTransactionResponse extends HorizonResponse
      */
     protected function parseRawData($rawData)
     {
-        if (!$rawData) return;
+        if (!$rawData) {
+            return;
+        }
 
         if (!empty($rawData['result_xdr'])) {
             $xdr = new XdrBuffer(base64_decode($rawData['result_xdr']));

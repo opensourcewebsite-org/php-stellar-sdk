@@ -1,8 +1,6 @@
 <?php
 
-
 namespace ZuluCrypto\StellarSdk\XdrModel;
-
 
 use phpseclib3\Math\BigInteger;
 use ZuluCrypto\StellarSdk\Model\StellarAmount;

@@ -1,16 +1,14 @@
 <?php
 
-
 namespace ZuluCrypto\StellarSdk\XdrModel;
-
 
 use ZuluCrypto\StellarSdk\Xdr\XdrBuffer;
 use ZuluCrypto\StellarSdk\XdrModel\Operation\Operation;
 
 class OperationResult
 {
-    const BAD_AUTH      = 'bad_auth';   // too few signatures or wrong network
-    const NO_ACCOUNT    = 'no_account'; // source account doesn't exist
+    public const BAD_AUTH      = 'bad_auth';   // too few signatures or wrong network
+    public const NO_ACCOUNT    = 'no_account'; // source account doesn't exist
 
     /**
      * A string describing the error
@@ -51,7 +49,7 @@ class OperationResult
             case Operation::TYPE_PAYMENT:
                 return PaymentResult::fromXdr($xdr);
                 break;
-            case Operation::TYPE_PATH_PAYMENT;
+            case Operation::TYPE_PATH_PAYMENT:
                 return PathPaymentResult::fromXdr($xdr);
                 break;
             case Operation::TYPE_MANAGE_OFFER:

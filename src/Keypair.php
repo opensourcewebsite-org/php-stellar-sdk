@@ -1,8 +1,6 @@
 <?php
 
-
 namespace ZuluCrypto\StellarSdk;
-
 
 use ParagonIE\Sodium\Core\Ed25519;
 use ZuluCrypto\StellarSdk\Derivation\Bip39\Bip39;
@@ -14,7 +12,6 @@ use ZuluCrypto\StellarSdk\XdrModel\DecoratedSignature;
  */
 class Keypair
 {
-
     /**
      * Base-32 encoded seed
      *
@@ -259,7 +256,9 @@ class Keypair
      */
     protected function requirePrivateKey()
     {
-        if (!$this->privateKey) throw new \ErrorException('Private key is required to perform this operation');
+        if (!$this->privateKey) {
+            throw new \ErrorException('Private key is required to perform this operation');
+        }
     }
 
     protected function getEd25519SecretKey()

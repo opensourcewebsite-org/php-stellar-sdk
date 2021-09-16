@@ -1,8 +1,6 @@
 <?php
 
-
 namespace ZuluCrypto\StellarSdk\Model;
-
 
 use phpseclib3\Math\BigInteger;
 use ZuluCrypto\StellarSdk\Util\MathSafety;
@@ -19,7 +17,7 @@ use ZuluCrypto\StellarSdk\Xdr\XdrBuffer;
  */
 class StellarAmount
 {
-    const STROOP_SCALE = 10000000; // 10 million, 7 zeroes
+    public const STROOP_SCALE = 10000000; // 10 million, 7 zeroes
 
     /**
      * @var BigInteger
@@ -78,10 +76,9 @@ class StellarAmount
             $this->stroops = $lumensOrBigIntegerStroops;
         }
         // Can also pass in another StellarAmount
-        else if ($lumensOrBigIntegerStroops instanceof StellarAmount) {
+        elseif ($lumensOrBigIntegerStroops instanceof StellarAmount) {
             $this->stroops = clone $lumensOrBigIntegerStroops->getUnscaledBigInteger();
-        }
-        else {
+        } else {
             $lumensOrBigIntegerStroops = number_format($lumensOrBigIntegerStroops, 7, '.', '');
             $parts = explode('.', $lumensOrBigIntegerStroops);
             $unscaledAmount = new BigInteger('0');
@@ -95,7 +92,7 @@ class StellarAmount
             // Add everything to the right of the decimal point
             if (count($parts) == 2 && str_replace('0', '', $parts[1]) != '') {
                 // Should be a total of 7 decimal digits to the right of the decimal
-                $unscaledAmountRight = str_pad($parts[1], 7, '0',STR_PAD_RIGHT);
+                $unscaledAmountRight = str_pad($parts[1], 7, '0', STR_PAD_RIGHT);
                 $unscaledAmount = $unscaledAmount->add(new BigInteger($unscaledAmountRight));
             }
 

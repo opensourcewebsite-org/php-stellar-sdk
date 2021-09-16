@@ -2,7 +2,6 @@
 
 namespace ZuluCrypto\StellarSdk\XdrModel;
 
-
 use ZuluCrypto\StellarSdk\Xdr\Iface\XdrEncodableInterface;
 use ZuluCrypto\StellarSdk\Xdr\XdrBuffer;
 use ZuluCrypto\StellarSdk\Xdr\XdrEncoder;
@@ -86,7 +85,9 @@ class Signer implements XdrEncodableInterface
      */
     public function setWeight($weight)
     {
-        if ($weight > 255 || $weight < 0) throw new \InvalidArgumentException('weight must be between 0 and 255');
+        if ($weight > 255 || $weight < 0) {
+            throw new \InvalidArgumentException('weight must be between 0 and 255');
+        }
 
         $this->weight = $weight;
     }

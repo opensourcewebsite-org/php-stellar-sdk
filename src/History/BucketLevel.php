@@ -1,8 +1,6 @@
 <?php
 
-
 namespace ZuluCrypto\StellarSdk\History;
-
 
 /**
  * State documentation available at:
@@ -14,13 +12,13 @@ namespace ZuluCrypto\StellarSdk\History;
  */
 class BucketLevel
 {
-    const HASH_EMPTY = '0000000000000000000000000000000000000000000000000000000000000000';
+    public const HASH_EMPTY = '0000000000000000000000000000000000000000000000000000000000000000';
 
     // Future bucket that hasn't been populated yet
-    const STATE_PENDING         = 0;
+    public const STATE_PENDING         = 0;
     //
-    const STATE_MERGED          = 1;
-    const STATE_MERGE_PENDING   = 2;
+    public const STATE_MERGED          = 1;
+    public const STATE_MERGE_PENDING   = 2;
 
     /**
      *
@@ -78,8 +76,12 @@ class BucketLevel
     {
         $hashes = [];
 
-        if ($this->curr != self::HASH_EMPTY) $hashes[] = $this->curr;
-        if ($this->snap != self::HASH_EMPTY) $hashes[] = $this->snap;
+        if ($this->curr != self::HASH_EMPTY) {
+            $hashes[] = $this->curr;
+        }
+        if ($this->snap != self::HASH_EMPTY) {
+            $hashes[] = $this->snap;
+        }
 
         return array_values(array_unique($hashes));
     }

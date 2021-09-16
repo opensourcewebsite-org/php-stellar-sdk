@@ -1,8 +1,6 @@
 <?php
 
-
 namespace ZuluCrypto\StellarSdk\XdrModel;
-
 
 use phpseclib3\Math\BigInteger;
 use ZuluCrypto\StellarSdk\Model\StellarAmount;
@@ -10,7 +8,7 @@ use ZuluCrypto\StellarSdk\Xdr\XdrBuffer;
 
 class OfferEntry
 {
-    const FLAG_IS_PASSIVE   = 1;
+    public const FLAG_IS_PASSIVE   = 1;
 
     /**
      * @var AccountId

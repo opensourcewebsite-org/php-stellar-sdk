@@ -1,8 +1,6 @@
 <?php
 
-
 namespace ZuluCrypto\StellarSdk\Derivation\Bip39;
-
 
 use ZuluCrypto\StellarSdk\Util\Debug;
 
@@ -60,7 +58,9 @@ class Bip39
             $bitstring = str_pad($bitstring, $chunkSizeBits, '0', STR_PAD_LEFT);
         }
 
-        if (strlen($bitstring) % $chunkSizeBits !== 0) throw new \InvalidArgumentException(sprintf('Got bitstring of length %s, but it must be divisible by %s', strlen($bitstring), $chunkSizeBits));
+        if (strlen($bitstring) % $chunkSizeBits !== 0) {
+            throw new \InvalidArgumentException(sprintf('Got bitstring of length %s, but it must be divisible by %s', strlen($bitstring), $chunkSizeBits));
+        }
 
         $finalHex = '';
         for ($i=0; $i < strlen($bitstring); $i += $chunkSizeBits) {
@@ -82,7 +82,9 @@ class Bip39
      */
     public function __construct($wordlistPath = null)
     {
-        if (null === $wordlistPath) $wordlistPath = __DIR__ . '/wordlists/en.txt';
+        if (null === $wordlistPath) {
+            $wordlistPath = __DIR__ . '/wordlists/en.txt';
+        }
 
         $this->words = $this->loadWordlist($wordlistPath);
     }
@@ -169,7 +171,9 @@ class Bip39
     protected function parseMnemonic($mnemonic)
     {
         $words = explode(' ', $mnemonic);
-        if (count($words) %3 !== 0) throw new \InvalidArgumentException('Invalid mnemonic (number of words must be a multiple of 3)');
+        if (count($words) %3 !== 0) {
+            throw new \InvalidArgumentException('Invalid mnemonic (number of words must be a multiple of 3)');
+        }
 
         $wordBitstrings = [];
         foreach ($words as $word) {
@@ -193,7 +197,9 @@ class Bip39
         $index = 0;
 
         foreach ($this->words as $wordInList) {
-            if ($wordInList === $word) return $index;
+            if ($wordInList === $word) {
+                return $index;
+            }
 
             $index++;
         }
@@ -208,7 +214,9 @@ class Bip39
     protected function loadWordlist($wordlistPath)
     {
         $this->words = [];
-        if (!file_exists($wordlistPath)) throw new \InvalidArgumentException('Cannot load wordlist from "%s"', $wordlistPath);
+        if (!file_exists($wordlistPath)) {
+            throw new \InvalidArgumentException('Cannot load wordlist from "%s"', $wordlistPath);
+        }
 
         foreach (file($wordlistPath) as $word) {
             $this->words[] = trim($word);

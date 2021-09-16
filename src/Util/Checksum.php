@@ -1,8 +1,6 @@
 <?php
 
-
 namespace ZuluCrypto\StellarSdk\Util;
-
 
 /**
  * Utility methods for calculating checksums
@@ -52,7 +50,9 @@ class Checksum
                 $bit = (($byte >> (7 - $i) & 1) == 1);
                 $c15 = (($crc >> 15 & 1) == 1);
                 $crc <<= 1;
-                if ($c15 ^ $bit) $crc ^= $polynomial;
+                if ($c15 ^ $bit) {
+                    $crc ^= $polynomial;
+                }
             }
         }
 

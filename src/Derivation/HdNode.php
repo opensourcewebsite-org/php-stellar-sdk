@@ -1,8 +1,6 @@
 <?php
 
-
 namespace ZuluCrypto\StellarSdk\Derivation;
-
 
 use ZuluCrypto\StellarSdk\Util\MathSafety;
 
@@ -12,7 +10,7 @@ use ZuluCrypto\StellarSdk\Util\MathSafety;
  */
 class HdNode
 {
-    const HARDENED_MINIMUM_INDEX = 0x80000000;
+    public const HARDENED_MINIMUM_INDEX = 0x80000000;
 
     /**
      * @var string
@@ -50,8 +48,12 @@ class HdNode
     {
         MathSafety::require64Bit();
 
-        if (strlen($privateKeyBytes) != 32) throw new \InvalidArgumentException('Private key must be 32 bytes');
-        if (strlen($chainCodeBytes) != 32) throw new \InvalidArgumentException('Chain code must be 32 bytes');
+        if (strlen($privateKeyBytes) != 32) {
+            throw new \InvalidArgumentException('Private key must be 32 bytes');
+        }
+        if (strlen($chainCodeBytes) != 32) {
+            throw new \InvalidArgumentException('Chain code must be 32 bytes');
+        }
 
         $this->privateKeyBytes = $privateKeyBytes;
         $this->chainCodeBytes = $chainCodeBytes;
@@ -64,7 +66,9 @@ class HdNode
     public function derive($index)
     {
         $index = intval($index) + intval(static::HARDENED_MINIMUM_INDEX);
-        if ($index < static::HARDENED_MINIMUM_INDEX) throw new \InvalidArgumentException('Only hardened indexes are supported');
+        if ($index < static::HARDENED_MINIMUM_INDEX) {
+            throw new \InvalidArgumentException('Only hardened indexes are supported');
+        }
 
         // big-endian unsigned long (4 bytes)
         $indexBytes = pack('N', $index);
@@ -109,7 +113,9 @@ class HdNode
     {
         $parsed = [];
         $parts = explode('/', $path);
-        if (strtolower($parts[0]) != 'm') throw new \InvalidArgumentException('Path must start with "m"');
+        if (strtolower($parts[0]) != 'm') {
+            throw new \InvalidArgumentException('Path must start with "m"');
+        }
 
         // Remove initial 'm' since it refers to the current HdNode
         array_shift($parts);
@@ -117,10 +123,14 @@ class HdNode
         // Add each part to the return value
         foreach ($parts as $part) {
             // Each subsequent node must be hardened
-            if (strpos($part, "'") != (strlen($part)-1)) throw new \InvalidArgumentException('Path can only contain hardened indexes');
+            if (strpos($part, "'") != (strlen($part)-1)) {
+                throw new \InvalidArgumentException('Path can only contain hardened indexes');
+            }
             $part = str_replace("'", '', $part);
 
-            if (!is_numeric($part)) throw new \InvalidArgumentException('Path must be numeric');
+            if (!is_numeric($part)) {
+                throw new \InvalidArgumentException('Path must be numeric');
+            }
 
             $parsed[] = intval($part);
         }

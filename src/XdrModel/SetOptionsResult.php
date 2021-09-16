@@ -1,23 +1,21 @@
 <?php
 
-
 namespace ZuluCrypto\StellarSdk\XdrModel;
-
 
 use ZuluCrypto\StellarSdk\Xdr\XdrBuffer;
 
 class SetOptionsResult extends OperationResult
 {
     // https://github.com/stellar/stellar-core/blob/3c4e356803175f6c2645e4437881cf07522df94d/src/xdr/Stellar-transaction.x#L513
-    const LOW_RESERVE               = 'set_options_low_reserve';
-    const TOO_MANY_SIGNERS          = 'set_options_too_many_signers';
-    const BAD_FLAGS                 = 'set_options_bad_flags';
-    const INVALID_INFLATION         = 'set_options_invalid_inflation';  // inflation account does not exist
-    const CANT_CHANGE               = 'set_options_cant_change';        // option can no longer be changed
-    const UNKNOWN_FLAG              = 'set_options_unknown_flag';
-    const THRESHOLD_OUT_OF_RANGE    = 'set_options_threshold_out_of_range'; // bad value for weight or threshold
-    const BAD_SIGNER                = 'set_options_bad_signer';         // signer cannot be master key
-    const INVALID_HOME_DOMAIN       = 'set_options_invalid_home_domain';// malformed home domain
+    public const LOW_RESERVE               = 'set_options_low_reserve';
+    public const TOO_MANY_SIGNERS          = 'set_options_too_many_signers';
+    public const BAD_FLAGS                 = 'set_options_bad_flags';
+    public const INVALID_INFLATION         = 'set_options_invalid_inflation';  // inflation account does not exist
+    public const CANT_CHANGE               = 'set_options_cant_change';        // option can no longer be changed
+    public const UNKNOWN_FLAG              = 'set_options_unknown_flag';
+    public const THRESHOLD_OUT_OF_RANGE    = 'set_options_threshold_out_of_range'; // bad value for weight or threshold
+    public const BAD_SIGNER                = 'set_options_bad_signer';         // signer cannot be master key
+    public const INVALID_HOME_DOMAIN       = 'set_options_invalid_home_domain';// malformed home domain
 
     /**
      * @deprecated Do not call this method directly. Instead, use OperationResult::fromXdr

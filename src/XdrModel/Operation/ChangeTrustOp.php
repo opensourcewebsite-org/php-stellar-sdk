@@ -1,6 +1,5 @@
 <?php
 
-
 namespace ZuluCrypto\StellarSdk\XdrModel\Operation;
 
 use phpseclib3\Math\BigInteger;
@@ -10,7 +9,6 @@ use ZuluCrypto\StellarSdk\Xdr\XdrBuffer;
 use ZuluCrypto\StellarSdk\Xdr\XdrEncoder;
 use ZuluCrypto\StellarSdk\XdrModel\AccountId;
 use ZuluCrypto\StellarSdk\XdrModel\Asset;
-
 
 /**
  * Manages trust lines

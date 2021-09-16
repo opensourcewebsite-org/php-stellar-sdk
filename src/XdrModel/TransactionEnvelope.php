@@ -1,8 +1,6 @@
 <?php
 
-
 namespace ZuluCrypto\StellarSdk\XdrModel;
-
 
 use ZuluCrypto\StellarSdk\Keypair;
 use ZuluCrypto\StellarSdk\Server;
@@ -17,9 +15,9 @@ use ZuluCrypto\StellarSdk\Xdr\XdrEncoder;
 
 class TransactionEnvelope implements XdrEncodableInterface
 {
-    const TYPE_SCP  = 1;
-    const TYPE_TX   = 2;
-    const TYPE_AUTH = 3;
+    public const TYPE_SCP  = 1;
+    public const TYPE_TX   = 2;
+    public const TYPE_AUTH = 3;
 
     /**
      * @var TransactionBuilder[]
@@ -96,13 +94,14 @@ class TransactionEnvelope implements XdrEncodableInterface
      */
     public function sign($keypairsOrsecretKeyStrings, Server $server = null)
     {
-        if (!is_array($keypairsOrsecretKeyStrings)) $keypairsOrsecretKeyStrings = [$keypairsOrsecretKeyStrings];
+        if (!is_array($keypairsOrsecretKeyStrings)) {
+            $keypairsOrsecretKeyStrings = [$keypairsOrsecretKeyStrings];
+        }
 
         $transactionHash = null;
         if ($server) {
             $transactionHash = $server->getApiClient()->hash($this->transactionBuilder);
-        }
-        else {
+        } else {
             $transactionHash = $this->transactionBuilder->hash();
         }
 

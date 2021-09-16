@@ -1,8 +1,6 @@
 <?php
 
-
 namespace ZuluCrypto\StellarSdk\History;
-
 
 use GuzzleHttp\Client;
 use Symfony\Component\Filesystem\Filesystem;
@@ -41,9 +39,13 @@ class HttpHistoryArchive
     public function __construct($rootUrl, $storageRoot)
     {
         // Root URL must end in a slash
-        if (substr($rootUrl, -1, 1) != '/') $rootUrl .= '/';
+        if (substr($rootUrl, -1, 1) != '/') {
+            $rootUrl .= '/';
+        }
         // Storage url must end in the appropriate directory separator
-        if (substr($storageRoot, -1, 1) != DIRECTORY_SEPARATOR) $storageRoot .= DIRECTORY_SEPARATOR;
+        if (substr($storageRoot, -1, 1) != DIRECTORY_SEPARATOR) {
+            $storageRoot .= DIRECTORY_SEPARATOR;
+        }
 
         $this->rootUrl = $rootUrl;
         $this->storageRoot = $storageRoot;
@@ -115,7 +117,9 @@ class HttpHistoryArchive
 
         // Files won't change and are only written after a successful download, so
         // if it exists there's no need to download it again
-        if (!$forceDownload && $fs->exists($targetFile)) return $targetFile;
+        if (!$forceDownload && $fs->exists($targetFile)) {
+            return $targetFile;
+        }
 
         $tmpFile = $fs->tempnam(sys_get_temp_dir(), 'stellar-sync-tmp');
         $response = $this->httpClient->request('GET', $relativeUrl, [
@@ -159,9 +163,12 @@ class HttpHistoryArchive
         $subdir .= '/' . substr($prefixHex, 4, 2);
 
         // Then the filename + hex + extension
-        return sprintf('%s/%s-%s.%s',
+        return sprintf(
+            '%s/%s-%s.%s',
             $subdir,
-            $category, $prefixHex, $extension
+            $category,
+            $prefixHex,
+            $extension
         );
     }
 
@@ -174,7 +181,8 @@ class HttpHistoryArchive
         $subdir .= '/' . substr($prefixHex, 2, 2);
         $subdir .= '/' . substr($prefixHex, 4, 2);
 
-        return sprintf('%s/bucket-%s.xdr.gz',
+        return sprintf(
+            '%s/bucket-%s.xdr.gz',
             $subdir,
             $prefixHex
         );

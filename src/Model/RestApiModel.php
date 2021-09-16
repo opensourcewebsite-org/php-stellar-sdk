@@ -43,8 +43,12 @@ class RestApiModel
     {
         $this->rawData = $rawData;
 
-        if (isset($rawData['_links'])) $this->links = $rawData['_links'];
-        if (isset($rawData['id'])) $this->id = $rawData['id'];
+        if (isset($rawData['_links'])) {
+            $this->links = $rawData['_links'];
+        }
+        if (isset($rawData['id'])) {
+            $this->id = $rawData['id'];
+        }
     }
 
     /**

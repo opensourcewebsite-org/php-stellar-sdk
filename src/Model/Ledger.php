@@ -1,8 +1,6 @@
 <?php
 
-
 namespace ZuluCrypto\StellarSdk\Model;
-
 
 /**
  * See: https://www.stellar.org/developers/horizon/reference/resources/ledger.html
@@ -108,18 +106,42 @@ class Ledger extends RestApiModel
     {
         parent::loadFromRawResponseData($rawData);
 
-        if (isset($rawData['hash'])) $this->hash = $rawData['hash'];
-        if (isset($rawData['prev_hash'])) $this->previousHash = $rawData['prev_hash'];
-        if (isset($rawData['sequence'])) $this->sequence = strval($rawData['sequence']);
-        if (isset($rawData['transaction_count'])) $this->transactionCount = $rawData['transaction_count'];
-        if (isset($rawData['operation_count'])) $this->operationCount = $rawData['operation_count'];
-        if (isset($rawData['closed_at'])) $this->closedAt = \DateTime::createFromFormat(DATE_ISO8601, $rawData['closed_at']);
-        if (isset($rawData['total_coins'])) $this->totalCoins = strval($rawData['total_coins']);
-        if (isset($rawData['fee_pool'])) $this->feePool = $rawData['fee_pool'];
-        if (isset($rawData['base_fee'])) $this->baseFee = $rawData['base_fee'];
-        if (isset($rawData['base_reserve'])) $this->baseReserve = $rawData['base_reserve'];
-        if (isset($rawData['max_tx_set_size'])) $this->maxTransactionSetSize = $rawData['max_tx_set_size'];
-        if (isset($rawData['protocol_version'])) $this->protocolVersion = $rawData['protocol_version'];
+        if (isset($rawData['hash'])) {
+            $this->hash = $rawData['hash'];
+        }
+        if (isset($rawData['prev_hash'])) {
+            $this->previousHash = $rawData['prev_hash'];
+        }
+        if (isset($rawData['sequence'])) {
+            $this->sequence = strval($rawData['sequence']);
+        }
+        if (isset($rawData['transaction_count'])) {
+            $this->transactionCount = $rawData['transaction_count'];
+        }
+        if (isset($rawData['operation_count'])) {
+            $this->operationCount = $rawData['operation_count'];
+        }
+        if (isset($rawData['closed_at'])) {
+            $this->closedAt = \DateTime::createFromFormat(DATE_ISO8601, $rawData['closed_at']);
+        }
+        if (isset($rawData['total_coins'])) {
+            $this->totalCoins = strval($rawData['total_coins']);
+        }
+        if (isset($rawData['fee_pool'])) {
+            $this->feePool = $rawData['fee_pool'];
+        }
+        if (isset($rawData['base_fee'])) {
+            $this->baseFee = $rawData['base_fee'];
+        }
+        if (isset($rawData['base_reserve'])) {
+            $this->baseReserve = $rawData['base_reserve'];
+        }
+        if (isset($rawData['max_tx_set_size'])) {
+            $this->maxTransactionSetSize = $rawData['max_tx_set_size'];
+        }
+        if (isset($rawData['protocol_version'])) {
+            $this->protocolVersion = $rawData['protocol_version'];
+        }
     }
 
     /**

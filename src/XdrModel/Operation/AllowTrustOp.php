@@ -1,8 +1,6 @@
 <?php
 
-
 namespace ZuluCrypto\StellarSdk\XdrModel\Operation;
-
 
 use ZuluCrypto\StellarSdk\Xdr\XdrBuffer;
 use ZuluCrypto\StellarSdk\Xdr\XdrEncoder;
@@ -30,7 +28,9 @@ class AllowTrustOp extends Operation
 
     public function __construct(Asset $asset, AccountId $trustor = null, $sourceAccountId = null)
     {
-        if ($asset->isNative()) throw new \InvalidArgumentException('Trust cannot be added for native assets');
+        if ($asset->isNative()) {
+            throw new \InvalidArgumentException('Trust cannot be added for native assets');
+        }
 
         parent::__construct(Operation::TYPE_ALLOW_TRUST, $sourceAccountId);
 
@@ -46,7 +46,9 @@ class AllowTrustOp extends Operation
     public function toXdr()
     {
         // isAuthorized must be set to a value
-        if ($this->isAuthorized === null) throw new \ErrorException('isAuthorized must be set to true or false');
+        if ($this->isAuthorized === null) {
+            throw new \ErrorException('isAuthorized must be set to true or false');
+        }
 
         $bytes = parent::toXdr();
 
@@ -57,8 +59,7 @@ class AllowTrustOp extends Operation
         $bytes .= XdrEncoder::unsignedInteger($this->asset->getType());
         if ($this->asset->getType() == Asset::TYPE_ALPHANUM_4) {
             $bytes .= XdrEncoder::opaqueFixed($this->asset->getAssetCode(), 4, true);
-        }
-        elseif ($this->asset->getType() == Asset::TYPE_ALPHANUM_12) {
+        } elseif ($this->asset->getType() == Asset::TYPE_ALPHANUM_12) {
             $bytes .= XdrEncoder::opaqueFixed($this->asset->getAssetCode(), 12, true);
         }
 

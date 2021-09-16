@@ -2,7 +2,6 @@
 
 namespace ZuluCrypto\StellarSdk\XdrModel;
 
-
 use ZuluCrypto\StellarSdk\Keypair;
 use ZuluCrypto\StellarSdk\Xdr\Iface\XdrEncodableInterface;
 use ZuluCrypto\StellarSdk\Xdr\XdrBuffer;
@@ -13,9 +12,9 @@ use ZuluCrypto\StellarSdk\Xdr\XdrEncoder;
  */
 class SignerKey implements XdrEncodableInterface
 {
-    const TYPE_ED25519 = 0;
-    const TYPE_PRE_AUTH_TX = 1;
-    const TYPE_HASH_X = 2;
+    public const TYPE_ED25519 = 0;
+    public const TYPE_PRE_AUTH_TX = 1;
+    public const TYPE_HASH_X = 2;
 
     /**
      * See the TYPE constants

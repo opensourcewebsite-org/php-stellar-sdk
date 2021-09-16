@@ -1,6 +1,5 @@
 <?php
 
-
 namespace ZuluCrypto\StellarSdk\Transaction;
 
 use phpseclib3\Math\BigInteger;
@@ -35,7 +34,6 @@ use ZuluCrypto\StellarSdk\XdrModel\Signer;
 use ZuluCrypto\StellarSdk\XdrModel\SignerKey;
 use ZuluCrypto\StellarSdk\XdrModel\TimeBounds;
 use ZuluCrypto\StellarSdk\XdrModel\TransactionEnvelope;
-
 
 /**
  * todo: rename to Transaction
@@ -197,8 +195,7 @@ class TransactionBuilder implements XdrEncodableInterface
             $this->signWith($this->signingProvider);
 
             return $this->getTransactionEnvelope();
-        }
-        else {
+        } else {
             return (new TransactionEnvelope($this))->sign($secretKeyString);
         }
     }
@@ -394,8 +391,7 @@ class TransactionBuilder implements XdrEncodableInterface
         // Time Bounds are optional
         if ($this->timeBounds->isEmpty()) {
             $bytes .= XdrEncoder::boolean(false);
-        }
-        else {
+        } else {
             $bytes .= XdrEncoder::boolean(true);
             $bytes .= $this->timeBounds->toXdr();
         }
@@ -526,7 +522,9 @@ class TransactionBuilder implements XdrEncodableInterface
 
     protected function ensureApiClient()
     {
-        if (!$this->apiClient) throw new \ErrorException("An API client is required, call setApiClient before using this method");
+        if (!$this->apiClient) {
+            throw new \ErrorException("An API client is required, call setApiClient before using this method");
+        }
     }
 
     /**

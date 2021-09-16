@@ -1,8 +1,6 @@
 <?php
 
-
 namespace ZuluCrypto\StellarSdk\Xdr;
-
 
 use ZuluCrypto\StellarSdk\Util\MathSafety;
 

@@ -1,8 +1,6 @@
 <?php
 
-
 namespace ZuluCrypto\StellarSdk\Horizon;
-
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
@@ -29,8 +27,8 @@ use ZuluCrypto\StellarSdk\XdrModel\TransactionEnvelope;
 class ApiClient
 {
     // Passphrases used when calculating hashes (see hash())
-    const NETWORK_PASSPHRASE_PUBLIC = 'Public Global Stellar Network ; September 2015';
-    const NETWORK_PASSPHRASE_TEST = 'Test SDF Network ; September 2015';
+    public const NETWORK_PASSPHRASE_PUBLIC = 'Public Global Stellar Network ; September 2015';
+    public const NETWORK_PASSPHRASE_TEST = 'Test SDF Network ; September 2015';
 
     /**
      * @var Client
@@ -180,8 +178,7 @@ class ApiClient
     {
         try {
             $res = $this->httpClient->get($relativeUrl);
-        }
-        catch (ClientException $e) {
+        } catch (ClientException $e) {
             // If the response can be json-decoded then it can be converted to a HorizonException
             $decoded = null;
             if ($e->getResponse()) {
@@ -208,9 +205,8 @@ class ApiClient
 
         try {
             $apiResponse = $this->httpClient->post($relativeUrl, [ 'form_params' => $parameters ]);
-        }
-        catch (ClientException $e) {
-              // If the response can be json-decoded then it can be converted to a HorizonException
+        } catch (ClientException $e) {
+            // If the response can be json-decoded then it can be converted to a HorizonException
             $decoded = null;
             if ($e->getResponse()) {
                 $decoded = Json::mustDecode($e->getResponse()->getBody());
@@ -246,13 +242,15 @@ class ApiClient
         $url = sprintf('/effects');
         $params = [];
 
-        if ($sinceCursor) $params['cursor'] = $sinceCursor;
+        if ($sinceCursor) {
+            $params['cursor'] = $sinceCursor;
+        }
 
         if ($params) {
             $url .= '?' . http_build_query($params);
         }
 
-        $this->getAndStream($url, function($rawData) use ($callback) {
+        $this->getAndStream($url, function ($rawData) use ($callback) {
             $parsedObject = Effect::fromRawResponseData($rawData);
             $parsedObject->setApiClient($this);
 
@@ -286,13 +284,15 @@ class ApiClient
         $url = sprintf('/ledgers');
         $params = [];
 
-        if ($sinceCursor) $params['cursor'] = $sinceCursor;
+        if ($sinceCursor) {
+            $params['cursor'] = $sinceCursor;
+        }
 
         if ($params) {
             $url .= '?' . http_build_query($params);
         }
 
-        $this->getAndStream($url, function($rawData) use ($callback) {
+        $this->getAndStream($url, function ($rawData) use ($callback) {
             $parsedObject = Ledger::fromRawResponseData($rawData);
             $parsedObject->setApiClient($this);
 
@@ -321,13 +321,15 @@ class ApiClient
         $url = sprintf('/operations');
         $params = [];
 
-        if ($sinceCursor) $params['cursor'] = $sinceCursor;
+        if ($sinceCursor) {
+            $params['cursor'] = $sinceCursor;
+        }
 
         if ($params) {
             $url .= '?' . http_build_query($params);
         }
 
-        $this->getAndStream($url, function($rawData) use ($callback) {
+        $this->getAndStream($url, function ($rawData) use ($callback) {
             $parsedObject = Operation::fromRawResponseData($rawData);
             $parsedObject->setApiClient($this);
 
@@ -356,13 +358,15 @@ class ApiClient
         $url = sprintf('/payments');
         $params = [];
 
-        if ($sinceCursor) $params['cursor'] = $sinceCursor;
+        if ($sinceCursor) {
+            $params['cursor'] = $sinceCursor;
+        }
 
         if ($params) {
             $url .= '?' . http_build_query($params);
         }
 
-        $this->getAndStream($url, function($rawData) use ($callback) {
+        $this->getAndStream($url, function ($rawData) use ($callback) {
             switch ($rawData['type']) {
                 case 'create_account':
                     $parsedObject = CreateAccountOperation::fromRawResponseData($rawData);
@@ -405,13 +409,15 @@ class ApiClient
         $url = sprintf('/transactions');
         $params = [];
 
-        if ($sinceCursor) $params['cursor'] = $sinceCursor;
+        if ($sinceCursor) {
+            $params['cursor'] = $sinceCursor;
+        }
 
         if ($params) {
             $url .= '?' . http_build_query($params);
         }
 
-        $this->getAndStream($url, function($rawData) use ($callback) {
+        $this->getAndStream($url, function ($rawData) use ($callback) {
             $parsedObject = Transaction::fromRawResponseData($rawData);
             $parsedObject->setApiClient($this);
 
@@ -448,14 +454,20 @@ class ApiClient
                     }
 
                     // Ignore empty lines
-                    if (!$line) continue;
+                    if (!$line) {
+                        continue;
+                    }
 
                     // Ignore "data: hello" handshake
-                    if (strpos($line, 'data: "hello"') === 0) continue;
+                    if (strpos($line, 'data: "hello"') === 0) {
+                        continue;
+                    }
 
                     // Ignore lines that don't start with "data: "
                     $sentinel = 'data: ';
-                    if (strpos($line, $sentinel) !== 0) continue;
+                    if (strpos($line, $sentinel) !== 0) {
+                        continue;
+                    }
 
                     // Remove sentinel prefix
                     $json = substr($line, strlen($sentinel));
@@ -465,10 +477,10 @@ class ApiClient
                         $callback($decoded);
                     }
                 }
-
-            }
-            catch (ServerException $e) {
-                if (!$retryOnServerException) throw $e;
+            } catch (ServerException $e) {
+                if (!$retryOnServerException) {
+                    throw $e;
+                }
 
                 // Delay for a bit before trying again
                 sleep(10);
@@ -491,8 +503,7 @@ class ApiClient
 
         try {
             $apiResponse = $this->httpClient->post($relativeUrl, [ 'form_params' => $parameters ]);
-        }
-        catch (ClientException $e) {
+        } catch (ClientException $e) {
             // If the response can be json-decoded then it can be converted to a HorizonException
             $decoded = null;
             if ($e->getResponse()) {
@@ -555,5 +566,4 @@ class ApiClient
     {
         $this->httpClient = $httpClient;
     }
-
 }

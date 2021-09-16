@@ -1,23 +1,21 @@
 <?php
 
-
 namespace ZuluCrypto\StellarSdk\XdrModel;
-
 
 use ZuluCrypto\StellarSdk\Xdr\XdrBuffer;
 
 class PaymentResult extends OperationResult
 {
     // https://github.com/stellar/stellar-core/blob/master/src/xdr/Stellar-transaction.x#L387
-    const MALFORMED             = 'payment_malformed';
-    const UNDERFUNDED           = 'payment_underfunded';
-    const SRC_NO_TRUST          = 'payment_src_no_trust';
-    const SRC_NOT_AUTHORIZED    = 'payment_src_not_authorized';
-    const NO_DESTINATION        = 'payment_no_destination';
-    const NO_TRUST              = 'payment_no_trust';
-    const NOT_AUTHORIZED        = 'payment_not_authorized';
-    const LINE_FULL             = 'payment_line_full';
-    const NO_ISSUER             = 'payment_no_issuer';
+    public const MALFORMED             = 'payment_malformed';
+    public const UNDERFUNDED           = 'payment_underfunded';
+    public const SRC_NO_TRUST          = 'payment_src_no_trust';
+    public const SRC_NOT_AUTHORIZED    = 'payment_src_not_authorized';
+    public const NO_DESTINATION        = 'payment_no_destination';
+    public const NO_TRUST              = 'payment_no_trust';
+    public const NOT_AUTHORIZED        = 'payment_not_authorized';
+    public const LINE_FULL             = 'payment_line_full';
+    public const NO_ISSUER             = 'payment_no_issuer';
 
     /**
      * @deprecated Do not call this method directly. Instead, use OperationResult::fromXdr

@@ -1,8 +1,6 @@
 <?php
 
-
 namespace ZuluCrypto\StellarSdk\XdrModel\Operation;
-
 
 use ZuluCrypto\StellarSdk\Keypair;
 use ZuluCrypto\StellarSdk\Xdr\Iface\XdrEncodableInterface;
@@ -32,18 +30,18 @@ use ZuluCrypto\StellarSdk\XdrModel\AccountId;
  */
 abstract class Operation implements XdrEncodableInterface
 {
-    const TYPE_CREATE_ACCOUNT       = 0;
-    const TYPE_PAYMENT              = 1;
-    const TYPE_PATH_PAYMENT         = 2;
-    const TYPE_MANAGE_OFFER         = 3;
-    const TYPE_CREATE_PASSIVE_OFFER = 4;
-    const TYPE_SET_OPTIONS          = 5;
-    const TYPE_CHANGE_TRUST         = 6;
-    const TYPE_ALLOW_TRUST          = 7;
-    const TYPE_ACCOUNT_MERGE        = 8;
-    const TYPE_INFLATION            = 9;
-    const TYPE_MANAGE_DATA          = 10;
-    const TYPE_BUMP_SEQUENCE        = 11;
+    public const TYPE_CREATE_ACCOUNT       = 0;
+    public const TYPE_PAYMENT              = 1;
+    public const TYPE_PATH_PAYMENT         = 2;
+    public const TYPE_MANAGE_OFFER         = 3;
+    public const TYPE_CREATE_PASSIVE_OFFER = 4;
+    public const TYPE_SET_OPTIONS          = 5;
+    public const TYPE_CHANGE_TRUST         = 6;
+    public const TYPE_ALLOW_TRUST          = 7;
+    public const TYPE_ACCOUNT_MERGE        = 8;
+    public const TYPE_INFLATION            = 9;
+    public const TYPE_MANAGE_DATA          = 10;
+    public const TYPE_BUMP_SEQUENCE        = 11;
 
     /**
      * @var AccountId

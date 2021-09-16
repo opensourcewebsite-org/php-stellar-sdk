@@ -1,8 +1,6 @@
 <?php
 
-
 namespace ZuluCrypto\StellarSdk\Horizon\Api;
-
 
 class HorizonResponse
 {
@@ -38,7 +36,9 @@ class HorizonResponse
      */
     public function getField($fieldName)
     {
-        if (!isset($this->rawData[$fieldName])) return null;
+        if (!isset($this->rawData[$fieldName])) {
+            return null;
+        }
 
         return $this->rawData[$fieldName];
     }
@@ -52,7 +52,9 @@ class HorizonResponse
      */
     public function mustGetField($fieldName)
     {
-        if (!isset($this->rawData[$fieldName])) throw new \InvalidArgumentException(sprintf("Field '%s' not present in response", $fieldName));
+        if (!isset($this->rawData[$fieldName])) {
+            throw new \InvalidArgumentException(sprintf("Field '%s' not present in response", $fieldName));
+        }
 
         return $this->rawData[$fieldName];
     }

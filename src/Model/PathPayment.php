@@ -1,8 +1,6 @@
 <?php
 
-
 namespace ZuluCrypto\StellarSdk\Model;
-
 
 class PathPayment extends Operation implements AssetTransferInterface
 {

@@ -2,7 +2,6 @@
 
 namespace ZuluCrypto\StellarSdk;
 
-
 use Prophecy\Exception\InvalidArgumentException;
 use ZuluCrypto\StellarSdk\Horizon\ApiClient;
 use ZuluCrypto\StellarSdk\Horizon\Exception\HorizonException;
@@ -80,7 +79,9 @@ class Server
     public function getAccount($accountId)
     {
         // Cannot be empty
-        if (!$accountId) throw new InvalidArgumentException('Empty accountId');
+        if (!$accountId) {
+            throw new InvalidArgumentException('Empty accountId');
+        }
 
         if ($accountId instanceof Keypair) {
             $accountId = $accountId->getPublicKey();
@@ -88,8 +89,7 @@ class Server
 
         try {
             $response = $this->apiClient->get(sprintf('/accounts/%s', $accountId));
-        }
-        catch (HorizonException $e) {
+        } catch (HorizonException $e) {
             // Account not found, return null
             if ($e->getHttpStatusCode() === 404) {
                 return null;
@@ -264,7 +264,9 @@ class Server
         }
 
         // Account ID may be valid but hasn't been funded yet
-        if (!$account) return false;
+        if (!$account) {
+            return false;
+        }
 
         return $account->getNativeBalanceStroops() != '0';
     }
@@ -317,8 +319,7 @@ class Server
         try {
             $this->apiClient->get(sprintf('/friendbot?addr=%s', $accountId));
             return true;
-        }
-        catch (HorizonException $e) {
+        } catch (HorizonException $e) {
             // Account has already been funded
             if ($e->getHttpStatusCode() == 400) {
                 return false;
@@ -327,7 +328,6 @@ class Server
             // Unexpected exception
             throw $e;
         }
-
     }
 
     /**

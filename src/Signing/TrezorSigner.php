@@ -1,8 +1,6 @@
 <?php
 
-
 namespace ZuluCrypto\StellarSdk\Signing;
-
 
 use ZuluCrypto\StellarSdk\Keypair;
 use ZuluCrypto\StellarSdk\Transaction\TransactionBuilder;
@@ -54,7 +52,8 @@ class TrezorSigner implements SigningInterface
 
         $bip32Path = sprintf("m/44'/148'/%s'", $this->accountIndex);
 
-        $cmd = sprintf('%s stellar_sign_transaction --address %s -n %s %s',
+        $cmd = sprintf(
+            '%s stellar_sign_transaction --address %s -n %s %s',
             $this->trezorBinPath,
             escapeshellarg($bip32Path),
             escapeshellarg($networkPassphrase),

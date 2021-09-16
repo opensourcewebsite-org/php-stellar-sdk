@@ -1,8 +1,6 @@
 <?php
 
-
 namespace ZuluCrypto\StellarSdk\Test\Unit\XdrModel;
-
 
 use PHPUnit\Framework\TestCase;
 use ZuluCrypto\StellarSdk\Keypair;

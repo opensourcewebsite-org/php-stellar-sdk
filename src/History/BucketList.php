@@ -1,8 +1,6 @@
 <?php
 
-
 namespace ZuluCrypto\StellarSdk\History;
-
 
 /**
  * See: https://github.com/stellar/stellar-core/blob/master/src/bucket/BucketList.h

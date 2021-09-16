@@ -1,8 +1,6 @@
 <?php
 
-
 namespace ZuluCrypto\StellarSdk\Test\Integration;
-
 
 use ZuluCrypto\StellarSdk\Horizon\Exception\PostTransactionException;
 use ZuluCrypto\StellarSdk\Keypair;
@@ -66,7 +64,7 @@ class TransactionBuilderTest extends IntegrationTest
         $xdrB64 = $rawData['result_xdr'];
         $xdr = base64_decode($xdrB64);
 
-        $xdr = substr($xdr,8 + 4 + 4);
+        $xdr = substr($xdr, 8 + 4 + 4);
         print "XDR: \n";
         print base64_encode($xdr);
     }
@@ -86,8 +84,7 @@ class TransactionBuilderTest extends IntegrationTest
                 ->submit($sourceKeypair);
 
             $this->fail('Exception was expected');
-        }
-        catch (PostTransactionException $ex) {
+        } catch (PostTransactionException $ex) {
             $result = $ex->getResult();
             $opResults = $result->getOperationResults();
             $this->assertCount(1, $opResults);

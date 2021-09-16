@@ -2,7 +2,6 @@
 
 namespace ZuluCrypto\StellarSdk\Util;
 
-
 class MathSafety
 {
     /**
@@ -12,6 +11,8 @@ class MathSafety
      */
     public static function require64Bit()
     {
-        if (PHP_INT_SIZE < 8) throw new \ErrorException('A 64-bit operating system is required');
+        if (PHP_INT_SIZE < 8) {
+            throw new \ErrorException('A 64-bit operating system is required');
+        }
     }
 }

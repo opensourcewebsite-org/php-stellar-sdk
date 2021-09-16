@@ -27,7 +27,7 @@ use ZuluCrypto\StellarSdk\Xdr\XdrEncoder;
  */
 class AccountId implements XdrEncodableInterface
 {
-    const KEY_TYPE_ED25519 = 0;
+    public const KEY_TYPE_ED25519 = 0;
 
     /**
      * Base32-encoded account ID (G...)

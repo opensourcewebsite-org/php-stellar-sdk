@@ -1,8 +1,6 @@
 <?php
 
-
 namespace ZuluCrypto\StellarSdk\XdrModel\Operation;
-
 
 use phpseclib3\Math\BigInteger;
 use ZuluCrypto\StellarSdk\Model\AssetAmount;
@@ -100,7 +98,8 @@ class ManageOfferOp extends Operation
         $price = Price::fromXdr($xdr);
         $offerId = $xdr->readUnsignedInteger64();
 
-        return new ManageOfferOp($sellingAsset,
+        return new ManageOfferOp(
+            $sellingAsset,
             $buyingAsset,
             $amount->getUnscaledBigInteger(),
             $price,

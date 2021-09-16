@@ -1,8 +1,6 @@
 <?php
 
-
 namespace ZuluCrypto\StellarSdk\Model;
-
 
 /**
  * See: https://www.stellar.org/developers/horizon/reference/resources/operation.html#inflation

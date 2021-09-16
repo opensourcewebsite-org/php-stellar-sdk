@@ -1,8 +1,6 @@
 <?php
 
-
 namespace ZuluCrypto\StellarSdk\XdrModel;
-
 
 use phpseclib3\Math\BigInteger;
 use ZuluCrypto\StellarSdk\Model\StellarAmount;
@@ -11,18 +9,18 @@ use ZuluCrypto\StellarSdk\Xdr\XdrBuffer;
 class PathPaymentResult extends OperationResult
 {
     // https://github.com/stellar/stellar-core/blob/3c4e356803175f6c2645e4437881cf07522df94d/src/xdr/Stellar-transaction.x#L414
-    const MALFORMED             = 'path_payment_malformed';
-    const UNDERFUNDED           = 'path_payment_underfunded';
-    const SRC_NO_TRUST          = 'path_payment_src_no_trust';
-    const SRC_NOT_AUTHORIZED    = 'path_payment_src_not_authorized';
-    const NO_DESTINATION        = 'path_payment_no_destination';
-    const NO_TRUST              = 'path_payment_no_trust';
-    const NOT_AUTHORIZED        = 'path_payment_not_authorized';
-    const LINE_FULL             = 'path_payment_line_full';
-    const NO_ISSUER             = 'path_payment_no_issuer';
-    const TOO_FEW_OFFERS        = 'path_payment_too_few_offers';
-    const OFFER_CROSS_SELF      = 'path_payment_offer_cross_self';
-    const OVER_SENDMAX          = 'path_payment_over_sendmax';
+    public const MALFORMED             = 'path_payment_malformed';
+    public const UNDERFUNDED           = 'path_payment_underfunded';
+    public const SRC_NO_TRUST          = 'path_payment_src_no_trust';
+    public const SRC_NOT_AUTHORIZED    = 'path_payment_src_not_authorized';
+    public const NO_DESTINATION        = 'path_payment_no_destination';
+    public const NO_TRUST              = 'path_payment_no_trust';
+    public const NOT_AUTHORIZED        = 'path_payment_not_authorized';
+    public const LINE_FULL             = 'path_payment_line_full';
+    public const NO_ISSUER             = 'path_payment_no_issuer';
+    public const TOO_FEW_OFFERS        = 'path_payment_too_few_offers';
+    public const OFFER_CROSS_SELF      = 'path_payment_offer_cross_self';
+    public const OVER_SENDMAX          = 'path_payment_over_sendmax';
 
     /**
      * @var ClaimOfferAtom[]

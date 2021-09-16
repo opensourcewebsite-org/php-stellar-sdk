@@ -1,0 +1,46 @@
+# https://scrutinizer-ci.com/g/opensourcewebsite-org/php-telegram-sdk/
+# https://scrutinizer-ci.com/docs/
+build:
+  image: default-bionic
+  environment:
+    mysql: false
+    postgresql: false
+    redis: false
+    php:
+      version: 7.4
+  dependencies:
+    override:
+      - composer install --prefer-dist --no-interaction
+  tests:
+    override:
+      - php-scrutinizer-run
+      - ./vendor/bin/php-cs-fixer fix --verbose --dry-run
+      - ./vendor/bin/phpunit --coverage-text
+  cache:
+    directories:
+      - ~/.composer/cache
+      - ~/.composer/vendor
+      - vendor
+filter:
+  excluded_paths: [vendor/*, tests/*]
+checks:
+  php:
+    remove_extra_empty_lines: true
+    remove_php_closing_tag: true
+    remove_trailing_whitespace: true
+    fix_use_statements:
+      remove_unused: true
+      preserve_multiple: false
+      preserve_blanklines: true
+      order_alphabetically: true
+    fix_php_opening_tag: true
+    fix_linefeed: true
+    fix_line_ending: true
+    fix_identation_4spaces: true
+    fix_doc_comments: true
+tools:
+  php_sim: false
+  php_pdepend: true
+  php_analyzer: true
+  php_code_coverage: true
+  external_code_coverage: false

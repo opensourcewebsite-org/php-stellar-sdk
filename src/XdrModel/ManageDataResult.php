@@ -1,18 +1,16 @@
 <?php
 
-
 namespace ZuluCrypto\StellarSdk\XdrModel;
-
 
 use ZuluCrypto\StellarSdk\Xdr\XdrBuffer;
 
 class ManageDataResult extends OperationResult
 {
     // https://github.com/stellar/stellar-core/blob/3c4e356803175f6c2645e4437881cf07522df94d/src/xdr/Stellar-transaction.x#L630
-    const NOT_SUPPORTED_YET         = 'manage_data_not_supported_yet';  // network hasn't upgraded to the right protocol version yet
-    const NAME_NOT_FOUND            = 'manage_data_name_not_found';     // trying to remove a data entry that doesn't exist
-    const LOW_RESERVE               = 'manage_data_low_reserve';
-    const INVALID_NAME              = 'manage_data_invalid_name';
+    public const NOT_SUPPORTED_YET         = 'manage_data_not_supported_yet';  // network hasn't upgraded to the right protocol version yet
+    public const NAME_NOT_FOUND            = 'manage_data_name_not_found';     // trying to remove a data entry that doesn't exist
+    public const LOW_RESERVE               = 'manage_data_low_reserve';
+    public const INVALID_NAME              = 'manage_data_invalid_name';
 
     /**
      * @deprecated Do not call this method directly. Instead, use OperationResult::fromXdr

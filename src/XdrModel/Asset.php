@@ -1,8 +1,6 @@
 <?php
 
-
 namespace ZuluCrypto\StellarSdk\XdrModel;
-
 
 use ZuluCrypto\StellarSdk\Xdr\Iface\XdrEncodableInterface;
 use ZuluCrypto\StellarSdk\Xdr\XdrBuffer;
@@ -20,9 +18,9 @@ use ZuluCrypto\StellarSdk\Xdr\XdrEncoder;
  */
 class Asset implements XdrEncodableInterface
 {
-    const TYPE_NATIVE       = 0;
-    const TYPE_ALPHANUM_4   = 1;
-    const TYPE_ALPHANUM_12  = 2;
+    public const TYPE_NATIVE       = 0;
+    public const TYPE_ALPHANUM_4   = 1;
+    public const TYPE_ALPHANUM_12  = 2;
 
     /**
      * See the TYPE_ constants
@@ -63,9 +61,13 @@ class Asset implements XdrEncodableInterface
         $codeLen = strlen($code);
 
         // todo: additional validation
-        if (!$codeLen || $codeLen > 12) throw new \InvalidArgumentException('Invalid code length (must be >=1 and <= 12');
+        if (!$codeLen || $codeLen > 12) {
+            throw new \InvalidArgumentException('Invalid code length (must be >=1 and <= 12');
+        }
 
-        if ($codeLen > 4) $type = Asset::TYPE_ALPHANUM_12;
+        if ($codeLen > 4) {
+            $type = Asset::TYPE_ALPHANUM_12;
+        }
 
         $asset = new Asset($type);
         $asset->assetCode = $code;
@@ -87,12 +89,10 @@ class Asset implements XdrEncodableInterface
 
         if ($this->type == self::TYPE_NATIVE) {
             // no additional content for native types
-        }
-        elseif ($this->type == self::TYPE_ALPHANUM_4) {
+        } elseif ($this->type == self::TYPE_ALPHANUM_4) {
             $bytes .= XdrEncoder::opaqueFixed($this->assetCode, 4, true);
             $bytes .= $this->issuer->toXdr();
-        }
-        elseif ($this->type == self::TYPE_ALPHANUM_12) {
+        } elseif ($this->type == self::TYPE_ALPHANUM_12) {
             $bytes .= XdrEncoder::opaqueFixed($this->assetCode, 12, true);
             $bytes .= $this->issuer->toXdr();
         }

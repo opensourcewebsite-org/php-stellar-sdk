@@ -20,12 +20,15 @@ use ZuluCrypto\StellarSdk\XdrModel\Operation\ManageOfferOp;
 use ZuluCrypto\StellarSdk\XdrModel\Price;
 use ZuluCrypto\StellarSdk\XdrModel\Operation\SetOptionsOp;
 
-
 $horizonBaseUrl = getenv('STELLAR_HORIZON_BASE_URL');
-if (!$horizonBaseUrl) $horizonBaseUrl = 'http://localhost:8000/';
+if (!$horizonBaseUrl) {
+    $horizonBaseUrl = 'http://localhost:8000/';
+}
 
 $networkPassphrase = getenv('STELLAR_NETWORK_PASSPHRASE');
-if (!$networkPassphrase) $networkPassphrase = 'Integration Test Network ; zulucrypto';
+if (!$networkPassphrase) {
+    $networkPassphrase = 'Integration Test Network ; zulucrypto';
+}
 
 $server = Server::customNet($horizonBaseUrl, $networkPassphrase);
 

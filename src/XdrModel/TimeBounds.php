@@ -2,7 +2,6 @@
 
 namespace ZuluCrypto\StellarSdk\XdrModel;
 
-
 use ZuluCrypto\StellarSdk\AddressableKey;
 use ZuluCrypto\StellarSdk\Util\MathSafety;
 use ZuluCrypto\StellarSdk\Xdr\XdrBuffer;

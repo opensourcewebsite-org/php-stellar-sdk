@@ -1,18 +1,16 @@
 <?php
 
-
 namespace ZuluCrypto\StellarSdk\XdrModel;
-
 
 use ZuluCrypto\StellarSdk\Xdr\XdrBuffer;
 
 class CreateAccountResult extends OperationResult
 {
     // https://github.com/stellar/stellar-core/blob/3c4e356803175f6c2645e4437881cf07522df94d/src/xdr/Stellar-transaction.x#L364
-    const MALFORMED             = 'create_account_malformed';
-    const UNDERFUNDED           = 'create_account_underfunded'; // source account does not have enough funds
-    const LOW_RESERVE           = 'create_account_low_reserve'; // would create an account below the minimum reserve
-    const ALREADY_EXIST         = 'create_account_already_exists';
+    public const MALFORMED             = 'create_account_malformed';
+    public const UNDERFUNDED           = 'create_account_underfunded'; // source account does not have enough funds
+    public const LOW_RESERVE           = 'create_account_low_reserve'; // would create an account below the minimum reserve
+    public const ALREADY_EXIST         = 'create_account_already_exists';
 
     /**
      * @deprecated Do not call this method directly. Instead, use OperationResult::fromXdr

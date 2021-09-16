@@ -1,10 +1,8 @@
 <?php
 
-
 namespace ZuluCrypto\StellarSdk\History;
 
 use ZuluCrypto\StellarSdk\Util\Json;
-
 
 /**
  * Models the HistoryArchiveState for a given ledger

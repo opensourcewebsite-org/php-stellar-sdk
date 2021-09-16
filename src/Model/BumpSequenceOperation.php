@@ -1,8 +1,6 @@
 <?php
 
-
 namespace ZuluCrypto\StellarSdk\Model;
-
 
 use phpseclib3\Math\BigInteger;
 use ZuluCrypto\StellarSdk\XdrModel\Operation\BumpSequenceOp;

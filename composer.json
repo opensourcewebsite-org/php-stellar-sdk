@@ -24,13 +24,8 @@
         "issues": "https://github.com/opensourcewebsite-org/php-stellar-sdk/issues",
         "source": "https://github.com/opensourcewebsite-org/php-stellar-sdk"
     },
-    "autoload": {
-        "psr-4": {
-            "ZuluCrypto\\StellarSdk\\": "src/",
-            "ZuluCrypto\\StellarSdk\\Test\\": "tests/"
-        }
-    },
     "require": {
+        "php": ">=7.4",
         "guzzlehttp/guzzle": "^7.3",
         "christian-riesen/base32": "^1.6",
         "paragonie/sodium_compat": "^1.0",
@@ -42,6 +37,16 @@
         "friendsofphp/php-cs-fixer": "^3.0",
         "phpunit/phpunit": "^9.0",
         "phpunit/php-code-coverage": "^9.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "ZuluCrypto\\StellarSdk\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "ZuluCrypto\\StellarSdk\\Test\\": "tests/"
+        }
     },
     "scripts": {
         "test": [

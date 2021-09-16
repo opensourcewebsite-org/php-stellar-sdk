@@ -1,6 +1,5 @@
 <?php
 
-
 namespace ZuluCrypto\StellarSdk\Signing;
 
 use ZuluCrypto\StellarSdk\Transaction\TransactionBuilder;

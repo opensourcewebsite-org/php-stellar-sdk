@@ -1,8 +1,6 @@
 <?php
 
-
 namespace ZuluCrypto\StellarSdk\Test\Unit\Slip0010;
-
 
 use PHPUnit\Framework\TestCase;
 use ZuluCrypto\StellarSdk\Derivation\Bip39\Bip39;

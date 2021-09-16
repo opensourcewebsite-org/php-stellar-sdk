@@ -1,8 +1,6 @@
 <?php
 
-
 namespace ZuluCrypto\StellarSdk\Test\Unit\Model;
-
 
 use phpseclib3\Math\BigInteger;
 use PHPUnit\Framework\TestCase;

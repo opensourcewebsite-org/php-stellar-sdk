@@ -1,6 +1,5 @@
 <?php
 
-
 namespace ZuluCrypto\StellarSdk\XdrModel\Operation;
 
 use phpseclib3\Math\BigInteger;
@@ -42,7 +41,7 @@ class CreateAccountOp extends Operation
             $sourceAccount = new AccountId($sourceAccount);
         }
 
-        parent::__construct( Operation::TYPE_CREATE_ACCOUNT, $sourceAccount);
+        parent::__construct(Operation::TYPE_CREATE_ACCOUNT, $sourceAccount);
 
         $this->newAccount = $newAccount;
         $this->startingBalance = new StellarAmount($startingBalance);

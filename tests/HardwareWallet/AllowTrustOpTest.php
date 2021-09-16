@@ -1,6 +1,5 @@
 <?php
 
-
 namespace ZuluCrypto\StellarSdk\Test\HardwareWallet;
 
 use ZuluCrypto\StellarSdk\Test\Util\HardwareWalletIntegrationTest;

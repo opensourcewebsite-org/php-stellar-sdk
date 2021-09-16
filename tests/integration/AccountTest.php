@@ -1,13 +1,10 @@
 <?php
 
-
 namespace ZuluCrypto\StellarSdk\Test\Integration;
-
 
 use ZuluCrypto\StellarSdk\Keypair;
 use ZuluCrypto\StellarSdk\Server;
 use ZuluCrypto\StellarSdk\Test\Util\IntegrationTest;
-
 
 class AccountTest extends IntegrationTest
 {

@@ -1,8 +1,6 @@
 <?php
 
-
 namespace ZuluCrypto\StellarSdk\Test\Integration;
-
 
 use ZuluCrypto\StellarSdk\Test\Util\IntegrationTest;
 

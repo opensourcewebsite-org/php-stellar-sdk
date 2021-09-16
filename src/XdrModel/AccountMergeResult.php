@@ -1,8 +1,6 @@
 <?php
 
-
 namespace ZuluCrypto\StellarSdk\XdrModel;
-
 
 use phpseclib3\Math\BigInteger;
 use ZuluCrypto\StellarSdk\Model\StellarAmount;
@@ -11,10 +9,10 @@ use ZuluCrypto\StellarSdk\Xdr\XdrBuffer;
 class AccountMergeResult extends OperationResult
 {
     // https://github.com/stellar/stellar-core/blob/3c4e356803175f6c2645e4437881cf07522df94d/src/xdr/Stellar-transaction.x#L585
-    const MALFORMED                 = 'account_merge_malformed';
-    const NO_ACCOUNT                = 'account_merge_no_account';       // destination account does not exist
-    const IMMUTABLE_SET             = 'account_merge_immutable_set';    // source account has AUTH_IMMUTABLE set
-    const HAS_SUB_ENTRIES           = 'account_merge_has_sub_entries';  // account has trust lines, offers, etc.
+    public const MALFORMED                 = 'account_merge_malformed';
+    public const NO_ACCOUNT                = 'account_merge_no_account';       // destination account does not exist
+    public const IMMUTABLE_SET             = 'account_merge_immutable_set';    // source account has AUTH_IMMUTABLE set
+    public const HAS_SUB_ENTRIES           = 'account_merge_has_sub_entries';  // account has trust lines, offers, etc.
 
     /**
      * Amount of XLM transferred from the source account to the destination account

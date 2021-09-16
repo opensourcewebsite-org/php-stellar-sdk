@@ -1,6 +1,5 @@
 <?php
 
-
 namespace ZuluCrypto\StellarSdk\Model;
 
 /**
@@ -78,11 +77,17 @@ class Effect extends RestApiModel
         // else goes in extraData
         $knownFields = ['_links', 'id', 'type', 'type_i'];
 
-        if (isset($rawData['type'])) $this->type = $rawData['type'];
-        if (isset($rawData['type_i'])) $this->typeI = $rawData['type_i'];
+        if (isset($rawData['type'])) {
+            $this->type = $rawData['type'];
+        }
+        if (isset($rawData['type_i'])) {
+            $this->typeI = $rawData['type_i'];
+        }
 
         foreach ($rawData as $key => $value) {
-            if (in_array($key, $knownFields)) continue;
+            if (in_array($key, $knownFields)) {
+                continue;
+            }
 
             $this->extraData[$key] = $value;
         }

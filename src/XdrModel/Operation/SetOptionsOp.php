@@ -1,8 +1,6 @@
 <?php
 
-
 namespace ZuluCrypto\StellarSdk\XdrModel\Operation;
-
 
 use ZuluCrypto\StellarSdk\Xdr\XdrBuffer;
 use ZuluCrypto\StellarSdk\Xdr\XdrEncoder;
@@ -11,8 +9,8 @@ use ZuluCrypto\StellarSdk\XdrModel\Signer;
 
 class SetOptionsOp extends Operation
 {
-    const FLAG_AUTH_REQUIRED    = 1;
-    const FLAG_AUTH_REVOCABLE   = 2;
+    public const FLAG_AUTH_REQUIRED    = 1;
+    public const FLAG_AUTH_REVOCABLE   = 2;
 
     /**
      * @var AccountId
@@ -78,8 +76,12 @@ class SetOptionsOp extends Operation
         $bytes = parent::toXdr();
 
         // Treat 0 flags as null
-        if ($this->setFlags === 0) $this->setFlags = null;
-        if ($this->clearFlags === 0) $this->clearFlags = null;
+        if ($this->setFlags === 0) {
+            $this->setFlags = null;
+        }
+        if ($this->clearFlags === 0) {
+            $this->clearFlags = null;
+        }
 
         // inflation destination
         $bytes .= XdrEncoder::optional($this->inflationDestinationAccount);
@@ -183,8 +185,7 @@ class SetOptionsOp extends Operation
         if ($isRequired) {
             $this->setFlags   = $this->setFlags | static::FLAG_AUTH_REQUIRED;
             $this->clearFlags = $this->clearFlags & ~(static::FLAG_AUTH_REQUIRED);
-        }
-        else {
+        } else {
             $this->setFlags   = $this->setFlags & ~(static::FLAG_AUTH_REQUIRED);
             $this->clearFlags = $this->clearFlags | static::FLAG_AUTH_REQUIRED;
         }
@@ -211,8 +212,7 @@ class SetOptionsOp extends Operation
         if ($isRevocable) {
             $this->setFlags   = $this->setFlags | static::FLAG_AUTH_REVOCABLE;
             $this->clearFlags = $this->clearFlags & ~(static::FLAG_AUTH_REVOCABLE);
-        }
-        else {
+        } else {
             $this->setFlags   = $this->setFlags & ~(static::FLAG_AUTH_REVOCABLE);
             $this->clearFlags = $this->clearFlags | static::FLAG_AUTH_REVOCABLE;
         }
@@ -247,7 +247,9 @@ class SetOptionsOp extends Operation
      */
     public function setMasterWeight($weight)
     {
-        if ($weight > 255 || $weight < 0) throw new \InvalidArgumentException('$weight must be between 0 and 255');
+        if ($weight > 255 || $weight < 0) {
+            throw new \InvalidArgumentException('$weight must be between 0 and 255');
+        }
 
         $this->masterWeight = $weight;
 
@@ -260,7 +262,9 @@ class SetOptionsOp extends Operation
      */
     public function setLowThreshold($threshold)
     {
-        if ($threshold < 0 || $threshold > 255) throw new \InvalidArgumentException('$threshold must be between 0 and ' . (2^32-1));
+        if ($threshold < 0 || $threshold > 255) {
+            throw new \InvalidArgumentException('$threshold must be between 0 and ' . (2^32-1));
+        }
 
         $this->lowThreshold = $threshold;
 
@@ -273,7 +277,9 @@ class SetOptionsOp extends Operation
      */
     public function setMediumThreshold($threshold)
     {
-        if ($threshold < 0 || $threshold > 255) throw new \InvalidArgumentException('$threshold must be between 0 and ' . (2^32-1));
+        if ($threshold < 0 || $threshold > 255) {
+            throw new \InvalidArgumentException('$threshold must be between 0 and ' . (2^32-1));
+        }
 
         $this->mediumThreshold = $threshold;
 
@@ -286,7 +292,9 @@ class SetOptionsOp extends Operation
      */
     public function setHighThreshold($threshold)
     {
-        if ($threshold < 0 || $threshold > 255) throw new \InvalidArgumentException('$threshold must be between 0 and ' . (2^32-1));
+        if ($threshold < 0 || $threshold > 255) {
+            throw new \InvalidArgumentException('$threshold must be between 0 and ' . (2^32-1));
+        }
 
         $this->highThreshold = $threshold;
 
@@ -299,7 +307,9 @@ class SetOptionsOp extends Operation
      */
     public function setHomeDomain($domain)
     {
-        if (strlen($domain) > 32) throw new \InvalidArgumentException('$domain can not be longer than 32 characters');
+        if (strlen($domain) > 32) {
+            throw new \InvalidArgumentException('$domain can not be longer than 32 characters');
+        }
 
         $this->homeDomain = $domain;
 
