@@ -28,3 +28,7 @@ composer.phar
 phpunit.phar
 # local phpunit config
 /phpunit.xml
+# phpunit cache file
+.phpunit.result.cache
+# phpunit output dir
+/output

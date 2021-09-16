@@ -5,6 +5,8 @@
 <h1>php-stellar-sdk</h1>
 </div>
 
+[![License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
+
 PHP Stellar SDK provides APIs to build and sign transactions, connect and query [Stellar Horizon server](https://github.com/stellar/go/tree/master/services/horizon).
 
 This library is under active development and should be considered beta quality. Please ensure that you've tested extensively on a test network and have added sanity checks in other places in your code.
@@ -95,6 +97,12 @@ To work around this issue, always work with and store amounts as an integer repr
 back to a decimal number when you need to display a balance to the user.
 
 The static `StellarAmount::STROOP_SCALE` property can be used to help with this conversion.
+
+## Tests
+
+``` bash
+$ composer test
+```
 
 ## License
 

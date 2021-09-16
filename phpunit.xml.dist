@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- https://phpunit.readthedocs.io/en/stable/configuration.html -->
+<phpunit bootstrap="vendor/autoload.php"
+         backupGlobals="false"
+         backupStaticAttributes="false"
+         colors="true"
+         verbose="true"
+         testdox="true"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+         processIsolation="false"
+         stopOnFailure="true">
+    <php>
+        <ini name="memory_limit" value="-1" />
+        <ini name="display_errors" value="On" />
+        <ini name="display_startup_errors" value="On" />
+        <ini name="error_reporting" value="E_ALL" />
+    </php>
+    <!-- Default excluded groups -->
+    <groups>
+        <exclude>
+            <!-- Requires the integration network: https://github.com/zulucrypto/docker-stellar-integration-test-network -->
+            <group>requires-integrationnet</group>
+            <!-- Requires a hardware wallet. See HardwareWalletIntegrationTest.php -->
+            <group>requires-hardwarewallet</group>
+        </exclude>
+    </groups>
+    <testsuites>
+        <testsuite name="Test Suite">
+            <directory>tests</directory>
+        </testsuite>
+    </testsuites>
+    <coverage>
+        <include>
+            <directory suffix=".php">src/</directory>
+        </include>
+        <exclude>
+            <directory suffix=".php">tests/</directory>
+            <directory suffix=".php">vendor/</directory>
+        </exclude>
+        <report>
+            <clover outputFile="output/clover.xml"/>
+            <html outputDirectory="output/html-coverage" lowUpperBound="50" highLowerBound="90"/>
+        </report>
+    </coverage>
+</phpunit>
