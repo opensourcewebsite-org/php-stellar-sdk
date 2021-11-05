@@ -1,5 +1,6 @@
 # https://scrutinizer-ci.com/g/opensourcewebsite-org/php-telegram-sdk/
 # https://scrutinizer-ci.com/docs/
+# https://scrutinizer-ci.com/docs/guides/php
 build:
   image: default-bionic
   environment:
@@ -22,4 +23,6 @@ build:
       - ~/.composer/vendor
       - vendor
 filter:
-  excluded_paths: [vendor/*, tests/*]
+  excluded_paths:
+    - vendor/*
+    - tests/*
