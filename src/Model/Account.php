@@ -99,8 +99,11 @@ class Account extends RestApiModel
                 $balance = new AssetAmount($rawBalance['balance'], $rawBalance['asset_type']);
 
                 if (!$balance->isNativeAsset()) {
-                    $balance->setAssetCode($rawBalance['asset_code']);
-                    $balance->setAssetIssuerAccountId($rawBalance['asset_issuer']);
+                    if (!$balance->isLiquidityPoolSharesAsset()) {
+                        $balance->setAssetCode($rawBalance['asset_code']);
+                        $balance->setAssetIssuerAccountId($rawBalance['asset_issuer']);
+                    }
+
                     $balance->setLimit($rawBalance['limit']);
                 }
 

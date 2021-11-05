@@ -9,6 +9,7 @@ class AssetAmount
     public const ASSET_TYPE_NATIVE = 'native';
     public const ASSET_TYPE_CREDIT_ALPHANUM4 = 'credit_alphanum4';
     public const ASSET_TYPE_CREDIT_ALPHANUM12 = 'credit_alphanum12';
+    public const ASSET_TYPE_LIQUIDITY_POOL_SHARES = 'liquidity_pool_shares';
 
     // Balances are represented in most UIs with a decimal point but stored
     // in the XDR structure and this class as signed 64-bit integers
@@ -80,6 +81,14 @@ class AssetAmount
     public function isNativeAsset()
     {
         return self::ASSET_TYPE_NATIVE == $this->assetType;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isLiquidityPoolSharesAsset()
+    {
+        return self::ASSET_TYPE_LIQUIDITY_POOL_SHARES == $this->assetType;
     }
 
     /**
