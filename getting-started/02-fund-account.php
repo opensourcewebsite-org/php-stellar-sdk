@@ -12,4 +12,3 @@ $response = file_get_contents('https://horizon-testnet.stellar.org/friendbot?add
 if ($response !== false) {
     print 'Success! Account is now funded.' . PHP_EOL;
 }
-

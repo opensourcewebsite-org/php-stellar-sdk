@@ -2,8 +2,7 @@
 
 require '../vendor/autoload.php';
 
-use \ZuluCrypto\StellarSdk\Keypair;
-
+use ZuluCrypto\StellarSdk\Keypair;
 
 $mnemonic = 'cable spray genius state float twenty onion head street palace net private method loan turn phrase state blanket interest dry amazing dress blast tube';
 $passphrase = 'p4ssphr4se'; // can be blank

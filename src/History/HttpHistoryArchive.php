@@ -129,11 +129,11 @@ class HttpHistoryArchive
 
         // Response succeeded
         if ($response->getStatusCode() == 200) {
-            // 200 is always OK
+        // 200 is always OK
         }
         // 404, but missing files are ok
         elseif ($allowMissing && $response->getStatusCode() == 404) {
-            // this is OK
+        // this is OK
         }
         // Error response or 404 with $allowMissing false
         else {

@@ -88,7 +88,7 @@ class Asset implements XdrEncodableInterface
         $bytes .= XdrEncoder::unsignedInteger($this->type);
 
         if ($this->type == self::TYPE_NATIVE) {
-            // no additional content for native types
+        // no additional content for native types
         } elseif ($this->type == self::TYPE_ALPHANUM_4) {
             $bytes .= XdrEncoder::opaqueFixed($this->assetCode, 4, true);
             $bytes .= $this->issuer->toXdr();

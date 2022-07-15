@@ -2,11 +2,11 @@
 
 namespace ZuluCrypto\StellarSdk\Test\HardwareWallet;
 
-use ZuluCrypto\StellarSdk\Test\Util\HardwareWalletIntegrationTest;
 use phpseclib3\Math\BigInteger;
 use ZuluCrypto\StellarSdk\Keypair;
-use ZuluCrypto\StellarSdk\XdrModel\Asset;
 use ZuluCrypto\StellarSdk\Model\StellarAmount;
+use ZuluCrypto\StellarSdk\Test\Util\HardwareWalletIntegrationTest;
+use ZuluCrypto\StellarSdk\XdrModel\Asset;
 
 class ChangeTrustOpTest extends HardwareWalletIntegrationTest
 {

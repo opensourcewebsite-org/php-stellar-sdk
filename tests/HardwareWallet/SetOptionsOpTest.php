@@ -2,9 +2,9 @@
 
 namespace ZuluCrypto\StellarSdk\Test\HardwareWallet;
 
-use ZuluCrypto\StellarSdk\Test\Util\HardwareWalletIntegrationTest;
 use phpseclib3\Math\BigInteger;
 use ZuluCrypto\StellarSdk\Keypair;
+use ZuluCrypto\StellarSdk\Test\Util\HardwareWalletIntegrationTest;
 use ZuluCrypto\StellarSdk\Util\Debug;
 use ZuluCrypto\StellarSdk\XdrModel\Operation\SetOptionsOp;
 use ZuluCrypto\StellarSdk\XdrModel\Signer;

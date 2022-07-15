@@ -17,9 +17,12 @@ while (true) {
     foreach ($payments as $payment) {
         /** @var $payment \ZuluCrypto\StellarSdk\Model\Operation|\ZuluCrypto\StellarSdk\Model\AssetTransferInterface */
         // If the same cursor shows up twice, we're repeating results and should exit
-        if ($payment->getPagingToken() == $currentCursor) break 2;
+        if ($payment->getPagingToken() == $currentCursor) {
+            break 2;
+        }
 
-        printf('[%s] Amount: %s From %s in Tx %s' . PHP_EOL,
+        printf(
+            '[%s] Amount: %s From %s in Tx %s' . PHP_EOL,
             $payment->getAssetTransferType(),
             $payment->getAssetAmount(),
             $payment->getFromAccountId(),
@@ -30,5 +33,7 @@ while (true) {
     }
 
     // Immediate exit if there aren't enough results to fill the page
-    if ($seenResults < $resultsPerPage) break;
+    if ($seenResults < $resultsPerPage) {
+        break;
+    }
 }

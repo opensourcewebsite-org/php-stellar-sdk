@@ -2,8 +2,8 @@
 
 namespace ZuluCrypto\StellarSdk\Test\Integration;
 
-use ZuluCrypto\StellarSdk\Test\Util\IntegrationTest;
 use ZuluCrypto\StellarSdk\Keypair;
+use ZuluCrypto\StellarSdk\Test\Util\IntegrationTest;
 use ZuluCrypto\StellarSdk\XdrModel\Asset;
 use ZuluCrypto\StellarSdk\XdrModel\Operation\PathPaymentOp;
 

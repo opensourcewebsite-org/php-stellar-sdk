@@ -2,9 +2,9 @@
 
 require '../vendor/autoload.php';
 
-use \ZuluCrypto\StellarSdk\Keypair;
-use \ZuluCrypto\StellarSdk\Server;
-use \ZuluCrypto\StellarSdk\Horizon\Exception\PostTransactionException;
+use ZuluCrypto\StellarSdk\Horizon\Exception\PostTransactionException;
+use ZuluCrypto\StellarSdk\Keypair;
+use ZuluCrypto\StellarSdk\Server;
 
 $server = Server::testNet();
 
@@ -62,7 +62,9 @@ try {
 
     foreach ($operationResults as $result) {
         // Skip through the ones that worked
-        if ($result->succeeded()) continue;
+        if ($result->succeeded()) {
+            continue;
+        }
 
         // Print out the first failed one
         print "Operation failed with code: " . $result->getErrorCode() . PHP_EOL;

@@ -7,10 +7,9 @@
 
 require '../vendor/autoload.php';
 
-use \ZuluCrypto\StellarSdk\Keypair;
-use \ZuluCrypto\StellarSdk\Server;
-use \phpseclib\Math\BigInteger;
-
+use phpseclib\Math\BigInteger;
+use ZuluCrypto\StellarSdk\Keypair;
+use ZuluCrypto\StellarSdk\Server;
 
 $server = Server::testNet();
 
@@ -20,8 +19,7 @@ try {
 
     if ($exists) {
         print "Account exists!" . PHP_EOL;
-    }
-    else {
+    } else {
         print "Account does not exist." . PHP_EOL;
     }
 }
