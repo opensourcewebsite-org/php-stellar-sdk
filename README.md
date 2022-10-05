@@ -1,11 +1,7 @@
-<div align="center">
-<img alt="Stellar" src="https://github.com/stellar/.github/raw/master/stellar-logo.png" width="558" />
-<br/>
-<strong>Creating equitable access to the global financial system</strong>
-<h1>php-stellar-sdk</h1>
-</div>
+<h1 align="center">PHP Stellar SDK</h1>
 
-[![License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
+[![License](https://img.shields.io/badge/License-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
+[![PHP Version](https://img.shields.io/badge/PHP-7.4-blue.svg?style=flat-square&logo=php)](https://www.php.net)
 
 PHP Stellar SDK provides APIs to build and sign transactions, connect and query [Stellar Horizon server](https://github.com/stellar/go/tree/master/services/horizon).
 
@@ -103,6 +99,12 @@ The static `StellarAmount::STROOP_SCALE` property can be used to help with this 
 ``` bash
 $ composer test
 ```
+
+## Feedback
+
+To request a new feature, submit a bug report, give us feedback, start a design discussion or have an idea to make this code better feel free to [open an issue](https://github.com/opensourcewebsite-org/php-stellar-sdk/issues), or [create a pull request](https://github.com/opensourcewebsite-org/php-stellar-sdk/pulls).
+
+Please send all security issues to [security@opensourcewebsite.org](mailto:security@opensourcewebsite.org).
 
 ## License
 
