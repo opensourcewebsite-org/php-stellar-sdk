@@ -86,13 +86,19 @@ class TransactionBuilder implements XdrEncodableInterface
     private $memo;
 
     /**
+     * The network base fee, stroops
+     *
+     * @var integer
+     */
+    private $baseFee = 100;
+
+    /**
      * @var VariableArray[]
      */
     private $operations;
 
     /**
-     * Horizon API client, used for retrieving sequence numbers and validating
-     * transaction
+     * Horizon API client, used for retrieving sequence numbers and validating transaction
      *
      * @var ApiClient
      */
@@ -119,7 +125,7 @@ class TransactionBuilder implements XdrEncodableInterface
      * TransactionBuilder constructor.
      *
      * @param $sourceAccountId
-     * @return TransactionBuilder
+     * @return self
      */
     public function __construct($sourceAccountId)
     {
@@ -227,15 +233,31 @@ class TransactionBuilder implements XdrEncodableInterface
 
     public function getFee()
     {
-        // todo: load base fee from network
-        return 100 * $this->operations->count();
+        return $this->baseFee * $this->operations->count();
+    }
+
+    public function getBaseFee()
+    {
+        // TODO load base fee from network
+        return $this->baseFee;
+    }
+
+    /**
+     * @param int $baseFee
+     * @return self
+     */
+    public function setBaseFee(int $baseFee)
+    {
+        $this->baseFee = $baseFee;
+
+        return $this;
     }
 
     /**
      * @param string|Keypair          $destination
      * @param number|BigInteger       $amount int representing lumens or BigInteger representing stroops
      * @param null                    $sourceAccountId
-     * @return TransactionBuilder
+     * @return self
      */
     public function addLumenPayment($destination, $amount, $sourceAccountId = null)
     {
@@ -246,7 +268,7 @@ class TransactionBuilder implements XdrEncodableInterface
      * @param string            $newAccountId
      * @param number|BigInteger $amount int representing lumens or BigInteger representing stroops
      * @param string            $sourceAccountId
-     * @return TransactionBuilder
+     * @return self
      */
     public function addCreateAccountOp($newAccountId, $amount, $sourceAccountId = null)
     {
@@ -258,7 +280,7 @@ class TransactionBuilder implements XdrEncodableInterface
      * @param number|BigInteger   $amount number representing lumens or BigInteger representing stroops
      * @param string|Keypair      $destinationAccountId
      * $param null|string|Keypair $sourceAccountId
-     * @return TransactionBuilder
+     * @return self
      */
     public function addCustomAssetPaymentOp(Asset $asset, $amount, $destinationAccountId, $sourceAccountId = null)
     {
@@ -271,7 +293,7 @@ class TransactionBuilder implements XdrEncodableInterface
      * @param Asset $asset
      * @param int   $amount defaults to maximum if null
      * @param null  $sourceAccountId
-     * @return TransactionBuilder
+     * @return self
      */
     public function addChangeTrustOp(Asset $asset, $amount = null, $sourceAccountId = null)
     {
@@ -289,7 +311,7 @@ class TransactionBuilder implements XdrEncodableInterface
      * @param Asset $asset
      * @param       $trustorId
      * @param null  $sourceAccountId
-     * @return TransactionBuilder
+     * @return self
      */
     public function authorizeTrustline(Asset $asset, $trustorId, $sourceAccountId = null)
     {
@@ -310,7 +332,7 @@ class TransactionBuilder implements XdrEncodableInterface
      * @param Asset $asset
      * @param       $trustorId
      * @param null  $sourceAccountId
-     * @return TransactionBuilder
+     * @return self
      */
     public function revokeTrustline(Asset $asset, $trustorId, $sourceAccountId = null)
     {
@@ -328,7 +350,7 @@ class TransactionBuilder implements XdrEncodableInterface
      * Adds an operation to merge the balance of the source account to $destinationAccountId
      * @param      $destinationAccountId
      * @param null $sourceAccountId
-     * @return TransactionBuilder
+     * @return self
      */
     public function addMergeOperation($destinationAccountId, $sourceAccountId = null)
     {
@@ -343,7 +365,7 @@ class TransactionBuilder implements XdrEncodableInterface
      * @param      $key
      * @param      $value
      * @param null $sourceAccountId
-     * @return TransactionBuilder
+     * @return self
      */
     public function setAccountData($key, $value = null, $sourceAccountId = null)
     {
@@ -353,7 +375,7 @@ class TransactionBuilder implements XdrEncodableInterface
     /**
      * @param      $key
      * @param null $sourceAccountId
-     * @return TransactionBuilder
+     * @return self
      */
     public function clearAccountData($key, $sourceAccountId = null)
     {
@@ -363,7 +385,7 @@ class TransactionBuilder implements XdrEncodableInterface
     /**
      * @param BigInteger $bumpTo
      * @param null       $sourceAccountId
-     * @return TransactionBuilder
+     * @return self
      */
     public function bumpSequenceTo(BigInteger $bumpTo, $sourceAccountId = null)
     {
@@ -411,7 +433,7 @@ class TransactionBuilder implements XdrEncodableInterface
     /**
      * @param XdrBuffer $xdr
      * @param Server    $server
-     * @return TransactionBuilder
+     * @return self
      * @throws \ErrorException
      */
     public static function fromXdr(XdrBuffer $xdr, Server $server)
@@ -421,7 +443,7 @@ class TransactionBuilder implements XdrEncodableInterface
 
     /**
      * @param $operation
-     * @return TransactionBuilder
+     * @return self
      */
     public function addOperation($operation)
     {
@@ -432,7 +454,7 @@ class TransactionBuilder implements XdrEncodableInterface
 
     /**
      * @param $memo
-     * @return $this
+     * @return self
      */
     public function setTextMemo($memo)
     {
@@ -443,7 +465,7 @@ class TransactionBuilder implements XdrEncodableInterface
 
     /**
      * @param $memo
-     * @return $this
+     * @return self
      */
     public function setIdMemo($memo)
     {
@@ -459,7 +481,7 @@ class TransactionBuilder implements XdrEncodableInterface
      *  $builder->setHashMemo(hash('sha256', 'example thing being hashed', true));
      *
      * @param $memo 32-byte sha256 hash
-     * @return $this
+     * @return self
      */
     public function setHashMemo($memo)
     {
@@ -475,7 +497,7 @@ class TransactionBuilder implements XdrEncodableInterface
      *  $builder->setReturnMemo(hash('sha256', 'example thing being hashed', true));
      *
      * @param $memo 32-byte sha256 hash
-     * @return $this
+     * @return self
      */
     public function setReturnMemo($memo)
     {
@@ -486,7 +508,7 @@ class TransactionBuilder implements XdrEncodableInterface
 
     /**
      * @param \DateTime $lowerTimebound
-     * @return $this
+     * @return self
      */
     public function setLowerTimebound(\DateTime $lowerTimebound)
     {
@@ -497,7 +519,7 @@ class TransactionBuilder implements XdrEncodableInterface
 
     /**
      * @param \DateTime $upperTimebound
-     * @return $this
+     * @return self
      */
     public function setUpperTimebound(\DateTime $upperTimebound)
     {
@@ -537,7 +559,7 @@ class TransactionBuilder implements XdrEncodableInterface
 
     /**
      * @param ApiClient $apiClient
-     * @return TransactionBuilder
+     * @return self
      */
     public function setApiClient($apiClient)
     {
